@@ -28,7 +28,7 @@ android {
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
     implementation(project(":core"))
-    implementation(Dep.Kotlin.stdlib)
+    implementation(Dep.Kotlin.stdlibJdk7)
     implementation(Dep.AndroidX.appCompat)
     implementation(Dep.AndroidX.ktx)
     implementation(Dep.AndroidX.constraintLayout)

@@ -16,8 +16,8 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.21")
-    testCompile("junit:junit:4.12")
+    implementation(Dep.Kotlin.stdlibJdk8)
+    testCompile(Dep.junit)
 }
 
 val compileKotlin by tasks.getting(KotlinCompile::class) {
