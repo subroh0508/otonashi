@@ -1,6 +1,6 @@
 plugins {
     id("com.android.application")
-    id("kotlin-android")
+    kotlin("android")
     id("kotlin-android-extensions")
 }
 
@@ -27,6 +27,7 @@ android {
 
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
+    implementation(project(":core"))
     implementation(Dep.Kotlin.stdlib)
     implementation(Dep.AndroidX.appCompat)
     implementation(Dep.AndroidX.ktx)
