@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("kotlinx-serialization")
     id("kotlin-android-extensions")
 }
 
@@ -32,6 +33,10 @@ dependencies {
     implementation(Dep.AndroidX.appCompat)
     implementation(Dep.AndroidX.ktx)
     implementation(Dep.AndroidX.constraintLayout)
+    implementation(Dep.material)
+    implementation(Dep.Ktor.clientAndroid)
+    implementation(Dep.Ktor.jsonCommon)
+    implementation(Dep.Ktor.jsonJvm)
     testImplementation(Dep.junit)
     androidTestImplementation(Dep.AndroidX.Test.runner)
     androidTestImplementation(Dep.AndroidX.Test.espressoCore)

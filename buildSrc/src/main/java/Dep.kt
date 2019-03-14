@@ -22,5 +22,14 @@ object Dep {
         }
     }
 
+    const val material = "com.google.android.material:material:${Versions.material}"
+
+    object Ktor {
+        const val clientCommon = "io.ktor:ktor-client-core:${Versions.ktor}"
+        const val clientAndroid = "io.ktor:ktor-client-android:${Versions.ktor}"
+        const val jsonCommon = "io.ktor:ktor-client-json:${Versions.ktor}"
+        const val jsonJvm = "io.ktor:ktor-client-json-jvm:${Versions.ktor}"
+    }
+
     const val junit = "junit:junit:${Versions.junit}"
 }
