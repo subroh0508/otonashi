@@ -8,13 +8,135 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/test"
+        android:id="@+id/belongingContent"
+        style="@style/Section.Header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/belonging_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/check765"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <CheckBox
+        android:id="@+id/check765"
+        style="@style/Section.Content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/title_765pro_allstars"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintTop_toBottomOf="@id/belongingContent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/checkMillion"
+        app:layout_constraintBottom_toTopOf="@id/checkCinderella"/>
+
+    <CheckBox
+        android:id="@+id/checkMillion"
+        style="@style/Section.Content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_millionstars"
+        app:layout_constraintTop_toTopOf="@id/check765"
+        app:layout_constraintStart_toEndOf="@id/check765"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/check765"/>
+
+    <CheckBox
+        android:id="@+id/checkCinderella"
+        style="@style/Section.Content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_cinderella_girls"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintTop_toBottomOf="@id/check765"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/checkShiny"/>
+
+    <CheckBox
+        android:id="@+id/checkShiny"
+        style="@style/Section.Content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_shiny_colors"
+        app:layout_constraintTop_toTopOf="@id/checkCinderella"
+        app:layout_constraintStart_toEndOf="@id/checkCinderella"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/checkCinderella"/>
+
+    <CheckBox
+        android:id="@+id/check315"
+        style="@style/Section.Content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_315_starts"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintTop_toBottomOf="@id/checkCinderella"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/checkOthers"
+        app:layout_constraintBottom_toTopOf="@id/idolName"/>
+
+    <CheckBox
+        android:id="@+id/checkOthers"
+        style="@style/Section.Content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_others"
+        app:layout_constraintTop_toTopOf="@id/check315"
+        app:layout_constraintStart_toEndOf="@id/check315"
+        app:layout_constraintEnd_toStartOf="@id/checkStaff"
+        app:layout_constraintBottom_toBottomOf="@id/check315"/>
+
+    <CheckBox
+        android:id="@+id/checkStaff"
+        style="@style/Section.Content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_staff"
+        app:layout_constraintTop_toTopOf="@id/check315"
+        app:layout_constraintStart_toEndOf="@id/checkOthers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/check315"/>
+
+    <TextView
+        android:id="@+id/idolName"
+        style="@style/Section.Header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/idol_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/check315"
+        app:layout_constraintBottom_toTopOf="@id/nameLayout"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nameLayout"
+        style="@style/Section.TextField"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintTop_toBottomOf="@id/idolName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/sendRequest"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/send_request"
+        app:layout_constraintTop_toBottomOf="@id/nameLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">My Application</string>
+
+    <string name="belonging_content">所属コンテンツ</string>
+    <string name="title_765pro_allstars">765PRO ALLSTARS</string>
+    <string name="title_millionstars">MILLIONSTARS</string>
+    <string name="title_cinderella_girls">CINDERELLA GIRLS</string>
+    <string name="title_shiny_colors">SHINY COLORS</string>
+    <string name="title_315_starts">315 STARS</string>
+    <string name="title_others">OTHERS</string>
+    <string name="title_staff">STAFF</string>
+
+    <string name="idol_name">アイドル名</string>
+
+    <string name="send_request">リクエスト送信</string>
 </resources>
