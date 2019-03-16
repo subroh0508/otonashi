@@ -15,9 +15,11 @@ object Versions {
         }
     }
 
+    const val coroutines = "1.1.1"
+
     const val material = "1.0.0"
 
-    const val ktor = "1.1.2"
+    const val ktor = "1.1.3"
 
     const val junit = "4.12"
 }

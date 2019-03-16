@@ -24,6 +24,11 @@ object Dep {
 
     const val material = "com.google.android.material:material:${Versions.material}"
 
+    object Coroutines {
+        const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+        const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+    }
+
     object Ktor {
         const val clientCommon = "io.ktor:ktor-client-core:${Versions.ktor}"
         const val clientAndroid = "io.ktor:ktor-client-android:${Versions.ktor}"
