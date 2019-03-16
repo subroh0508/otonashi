@@ -24,6 +24,9 @@ android {
     sourceSets.forEach {
         it.java.setSrcDirs(files("src/${it.name}/kotlin"))
     }
+    packagingOptions {
+        exclude("META-INF/*")
+    }
 }
 
 dependencies {
@@ -34,6 +37,8 @@ dependencies {
     implementation(Dep.AndroidX.ktx)
     implementation(Dep.AndroidX.constraintLayout)
     implementation(Dep.material)
+    implementation(Dep.Coroutines.core)
+    implementation(Dep.Coroutines.android)
     implementation(Dep.Ktor.clientAndroid)
     implementation(Dep.Ktor.jsonCommon)
     implementation(Dep.Ktor.jsonJvm)
