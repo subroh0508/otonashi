@@ -7,6 +7,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.JSON
+import kotlinx.serialization.json.Json
 import net.subroh0508.core.IriRef
 import net.subroh0508.core.Prefix
 import net.subroh0508.core.SparqlQuery
@@ -58,8 +59,8 @@ class MainActivity : AppCompatActivity() {
 
         Log.d("query", query.toString())
         GlobalScope.launch {
-            val result = KtorClient.get<String>(query.toString())
-            Log.d("result", result)
+            val result = KtorClient.get(query.toString(), Result::class)
+            Log.d("result", Json.stringify(Result.serializer(), result))
         }
     }
 }

@@ -39,6 +39,7 @@ dependencies {
     implementation(Dep.material)
     implementation(Dep.Coroutines.core)
     implementation(Dep.Coroutines.android)
+    implementation(Dep.Ktor.clientCommon)
     implementation(Dep.Ktor.clientAndroid)
     implementation(Dep.Ktor.jsonCommon)
     implementation(Dep.Ktor.jsonJvm)
