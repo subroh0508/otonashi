@@ -27,7 +27,7 @@ object KtorClient {
         }
     }
 
-    suspend inline fun <reified T: Any> get(url: String, type: KClass<T>): T {
+    suspend inline fun <reified T: Any> get(url: String, type: KClass<T>): List<T> {
         return GlobalScope.async {
             val response = client.get<String>(url) {
                 accept(ContentType("application", "sparql-results+json"))
@@ -35,7 +35,7 @@ object KtorClient {
 
             Log.d("response", response)
             @UseExperimental(ImplicitReflectionSerializer::class)
-            return@async Json.nonstrict.parse(type.serializer(), response)
+            return@async Json.nonstrict.parse(SparqlResponse.serializer(type.serializer()), response).results.bindings
         }.await()
     }
 }

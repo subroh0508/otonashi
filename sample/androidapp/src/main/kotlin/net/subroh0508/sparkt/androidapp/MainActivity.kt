@@ -30,12 +30,14 @@ class MainActivity : AppCompatActivity() {
         val unitUrlVar = Var("unit_url")
         val unitNameVar = Var("unit_name")
         val titleVar = Var("title")
+        val ageVar = Var("age")
 
         val rdfType = IriRef("rdf:type")
         val imasIdol = IriRef("imas:Idol")
         val schemaName = IriRef("schema:name")
         val imasTitle = IriRef("imas:Title")
         val schemaMemberOf = IriRef("schema:memberOf")
+        val age = IriRef("foaf:age")
 
         val query = SparqlQuery(
             "https://sparql.crssnky.xyz/spql/imas/query",
@@ -53,14 +55,15 @@ class MainActivity : AppCompatActivity() {
             Var("s") be rdfType to imasIdol and
                     schemaName to nameVar and
                     imasTitle to titleVar and
-                    schemaMemberOf to unitUrlVar
-        }.select(nameVar, titleVar, unitUrlVar).limit(50)
+                    schemaMemberOf to unitUrlVar and
+                    age to ageVar
+        }.select(nameVar, titleVar, unitUrlVar, ageVar).limit(50)
 
 
         Log.d("query", query.toString())
         GlobalScope.launch {
-            val result = KtorClient.get(query.toString(), Result::class)
-            Log.d("result", Json.stringify(Result.serializer(), result))
+            val result = KtorClient.get(query.toString(), ImasResult::class)
+            Log.d("result", result.joinToString("\n") { Json.stringify(ImasResult.serializer(), it) })
         }
     }
 }

@@ -4,9 +4,10 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Bindings(
+data class ImasResult(
     val name: ValueSet,
     val title: ValueSet,
     @SerialName("unit_url")
-    val unitUrl: ValueSet
+    val unitUrl: ValueSet,
+    val age: ValueSet
 )
