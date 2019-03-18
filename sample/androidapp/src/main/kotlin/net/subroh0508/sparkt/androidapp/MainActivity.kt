@@ -1,14 +1,13 @@
 package net.subroh0508.sparkt.androidapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
-import net.subroh0508.sparkt.androidapp.KtorClient
-import net.subroh0508.sparkt.androidapp.Result
+import net.subroh0508.sparkt.R
 import net.subroh0508.sparkt.core.IriRef
 import net.subroh0508.sparkt.core.Prefix
 import net.subroh0508.sparkt.core.SparqlQuery

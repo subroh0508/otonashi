@@ -32,7 +32,6 @@ object KtorClient {
             val response = client.get<String>(url) {
                 accept(ContentType("application", "sparql-results+json"))
             }
-            client.close()
 
             Log.d("response", response)
             @UseExperimental(ImplicitReflectionSerializer::class)
