@@ -1,4 +1,4 @@
-package net.subroh0508.sparkl
+package net.subroh0508.sparkt.androidapp
 
 import android.util.Log
 import io.ktor.client.HttpClient

@@ -1,4 +1,4 @@
-package net.subroh0508.core
+package net.subroh0508.sparkt.core
 
 data class Prefix(
     private val name: String,

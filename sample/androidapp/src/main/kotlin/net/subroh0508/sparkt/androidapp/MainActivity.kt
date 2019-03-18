@@ -1,4 +1,4 @@
-package net.subroh0508.sparkl
+package net.subroh0508.sparkt.androidapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,12 +6,13 @@ import android.util.Log
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.JSON
 import kotlinx.serialization.json.Json
-import net.subroh0508.core.IriRef
-import net.subroh0508.core.Prefix
-import net.subroh0508.core.SparqlQuery
-import net.subroh0508.core.Var
+import net.subroh0508.sparkt.androidapp.KtorClient
+import net.subroh0508.sparkt.androidapp.Result
+import net.subroh0508.sparkt.core.IriRef
+import net.subroh0508.sparkt.core.Prefix
+import net.subroh0508.sparkt.core.SparqlQuery
+import net.subroh0508.sparkt.core.Var
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

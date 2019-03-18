@@ -4,7 +4,7 @@ plugins {
     kotlin("jvm")
 }
 
-group = "net.subroh0508.sparkl"
+group = "net.subroh0508.sparkt"
 version = "1.0-SNAPSHOT"
 
 java {

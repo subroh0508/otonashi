@@ -1,4 +1,4 @@
-package net.subroh0508.sparkl
+package net.subroh0508.sparkt
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4

@@ -1,4 +1,4 @@
-rootProject.name = "sparql"
+rootProject.name = "sparkt"
 
 include(":core",
         ":sample:androidapp")

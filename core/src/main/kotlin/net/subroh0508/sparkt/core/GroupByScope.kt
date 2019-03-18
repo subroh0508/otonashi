@@ -1,6 +1,4 @@
-package net.subroh0508.core.scope
-
-import net.subroh0508.core.Var
+package net.subroh0508.sparkt.core
 
 data class GroupByScope(
     private var vars: List<Var> = listOf()

@@ -1,8 +1,5 @@
-package net.subroh0508.core
+package net.subroh0508.sparkt.core
 
-import net.subroh0508.core.scope.GroupByScope
-import net.subroh0508.core.scope.OrderByScope
-import net.subroh0508.core.scope.WhereScope
 import java.net.URLEncoder
 
 class SparqlQuery(

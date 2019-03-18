@@ -1,4 +1,4 @@
-package net.subroh0508.sparkl
+package net.subroh0508.sparkt
 
 import org.junit.Test
 

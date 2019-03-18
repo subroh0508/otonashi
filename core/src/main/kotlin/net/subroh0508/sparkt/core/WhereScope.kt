@@ -1,6 +1,4 @@
-package net.subroh0508.core.scope
-
-import net.subroh0508.core.QueryItem
+package net.subroh0508.sparkt.core
 
 class WhereScope internal constructor() {
     private object SemiColon : QueryItem {
