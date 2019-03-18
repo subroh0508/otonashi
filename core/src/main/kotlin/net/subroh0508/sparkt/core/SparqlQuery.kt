@@ -1,5 +1,8 @@
 package net.subroh0508.sparkt.core
 
+import net.subroh0508.sparkt.core.scopes.GroupByScope
+import net.subroh0508.sparkt.core.scopes.OrderByScope
+import net.subroh0508.sparkt.core.scopes.WhereScope
 import java.net.URLEncoder
 
 class SparqlQuery(
@@ -8,8 +11,10 @@ class SparqlQuery(
 ) {
     private val whereScope: WhereScope by lazy(::WhereScope)
     private var selectVars: List<Var> = listOf(Var("*"))
-    private var groupByScope: GroupByScope = GroupByScope()
-    private var orderByScope: OrderByScope = OrderByScope()
+    private var groupByScope: GroupByScope =
+        GroupByScope()
+    private var orderByScope: OrderByScope =
+        OrderByScope()
     private var offset: Int? = null
     private var limit: Int? = null
 

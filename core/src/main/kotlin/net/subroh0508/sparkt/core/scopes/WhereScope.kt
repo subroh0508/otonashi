@@ -1,4 +1,6 @@
-package net.subroh0508.sparkt.core
+package net.subroh0508.sparkt.core.scopes
+
+import net.subroh0508.sparkt.core.QueryItem
 
 class WhereScope internal constructor() {
     private object SemiColon : QueryItem {
@@ -31,7 +33,7 @@ class WhereScope internal constructor() {
 
     override fun toString() = buildString {
         append("WHERE { ")
-        append(triples.joinToString(". ") { triple -> triple.joinToString(" ") })
+        append(triples.joinToString(" ") { triple -> triple.joinToString(" ") })
 
         append(". }")
     }

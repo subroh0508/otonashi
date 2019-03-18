@@ -1,4 +1,6 @@
-package net.subroh0508.sparkt.core
+package net.subroh0508.sparkt.core.scopes
+
+import net.subroh0508.sparkt.core.QueryItem
 
 data class OrderByScope(
     private val vars: List<QueryItem> = listOf()
