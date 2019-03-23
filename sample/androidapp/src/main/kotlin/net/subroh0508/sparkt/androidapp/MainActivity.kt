@@ -74,15 +74,13 @@ class MainActivity : AppCompatActivity() {
                 schemaName to unitNameVar
             }
         }.select {
-            listOf(
-                replace(
-                    str(subject),
-                    "https:\\\\/\\\\/sparql.crssnky.xyz\\\\/imasrdf\\\\/RDFs\\\\/detail\\\\/",
-                    ""
-                ).asVar("id"),
-                nameVar,
-                groupConcat(unitNameVar, ",").asVar("unit_names")
-            )
+            val idVar = replace(
+                str(subject),
+                """https://sparql.crssnky.xyz/imasrdf/RDFs/detail/""",
+                ""
+            ).asVar("id")
+
+            idVar + nameVar + groupConcat(unitNameVar, ",").asVar("unit_names")
         }.groupBy(subject, nameVar).limit(100)
 
 

@@ -13,6 +13,10 @@ class Select internal constructor(private val vars: List<TripleItem>) : QueryIte
         fun Node.asVar(name: String) = AsVar(this, name)
         fun AggregationFunction.asVar(name: String) = AsVar(this, name)
 
+        operator fun TripleItem.unaryPlus() = listOf(this)
+        operator fun TripleItem.plus(other: TripleItem) = listOf(this, other)
+        operator fun List<TripleItem>.plus(other: TripleItem) = this + listOf(other)
+
         data class AsVar internal constructor(
             private val func: Any,
             private val value: Var

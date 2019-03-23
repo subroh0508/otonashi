@@ -10,7 +10,7 @@ class Filter(private val node: Node? = null) : GraphPattern("FILTER") {
     override fun toString()
             = if (node != null) {
                 buildString {
-                    append("$prefix (")
+                    append("$prefix(")
                     append(node.toString())
                     append(")")
                 }
