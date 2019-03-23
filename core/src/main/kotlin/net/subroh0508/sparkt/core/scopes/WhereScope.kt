@@ -2,7 +2,7 @@ package net.subroh0508.sparkt.core.scopes
 
 import net.subroh0508.sparkt.core.QueryItem
 
-class WhereScope internal constructor() {
+open class WhereScope internal constructor() {
     private object SemiColon : QueryItem {
         override fun toString() = ";"
     }
@@ -33,8 +33,10 @@ class WhereScope internal constructor() {
 
     override fun toString() = buildString {
         append("WHERE { ")
-        append(triples.joinToString(" ") { triple -> triple.joinToString(" ") })
-
+        append(joinedTriples)
         append(". }")
     }
+
+    protected val joinedTriples: String
+        get() = triples.joinToString(" ") { triple -> triple.joinToString(" ") }
 }

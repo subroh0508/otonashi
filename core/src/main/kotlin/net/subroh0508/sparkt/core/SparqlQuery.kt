@@ -1,6 +1,7 @@
 package net.subroh0508.sparkt.core
 
 import net.subroh0508.sparkt.core.scopes.GroupByScope
+import net.subroh0508.sparkt.core.scopes.OptionalScope
 import net.subroh0508.sparkt.core.scopes.OrderByScope
 import net.subroh0508.sparkt.core.scopes.WhereScope
 import java.net.URLEncoder
@@ -10,6 +11,7 @@ class SparqlQuery(
     private val prefixes: List<Prefix>
 ) {
     private val whereScope: WhereScope by lazy(::WhereScope)
+    private val optionalScopes: MutableList<OptionalScope> = mutableListOf()
     private var selectVars: List<Var> = listOf(Var("*"))
     private var groupByScope: GroupByScope =
         GroupByScope()
@@ -20,6 +22,11 @@ class SparqlQuery(
 
     fun where(scope: WhereScope.() -> Unit): SparqlQuery {
         whereScope.apply(scope)
+        return this
+    }
+
+    fun optional(scope: OptionalScope.() -> Unit): SparqlQuery {
+        optionalScopes.add(OptionalScope().apply(scope))
         return this
     }
 
