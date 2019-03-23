@@ -1,7 +1,7 @@
 package net.subroh0508.sparkt.core
 
 import net.subroh0508.sparkt.core.aggregates.GroupBy
-import net.subroh0508.sparkt.core.scopes.Where
+import net.subroh0508.sparkt.core.patterns.Where
 import net.subroh0508.sparkt.core.sequences.Limit
 import net.subroh0508.sparkt.core.sequences.Offset
 import net.subroh0508.sparkt.core.sequences.OrderBy

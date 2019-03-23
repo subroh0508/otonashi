@@ -1,6 +1,4 @@
-package net.subroh0508.sparkt.core.scopes
-
-import net.subroh0508.sparkt.core.patterns.GraphPattern
+package net.subroh0508.sparkt.core.patterns
 
 class Where internal constructor() : GraphPattern("WHERE") {
     fun optional(optional: Optional.() -> Unit): Where {
