@@ -1,8 +1,8 @@
-package net.subroh0508.core.order
+package net.subroh0508.sparkt.core.order
 
-import net.subroh0508.sparkt.core.QueryItem
-import net.subroh0508.sparkt.core.Var
+import net.subroh0508.sparkt.core.triples.TripleItem
+import net.subroh0508.sparkt.core.triples.Var
 
-data class Asc(private val value: Var) : QueryItem {
+data class Asc(private val value: Var) : TripleItem {
     override fun toString(): String = "ASC($value)"
 }
