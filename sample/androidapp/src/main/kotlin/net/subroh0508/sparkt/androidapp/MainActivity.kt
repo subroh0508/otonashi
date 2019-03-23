@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.selects.select
 import kotlinx.serialization.json.Json
 import net.subroh0508.sparkt.R
 import net.subroh0508.sparkt.core.triples.IriRef
@@ -65,7 +66,12 @@ class MainActivity : AppCompatActivity() {
             filter {
                 contains(nameVar, "速水奏") or contains(nameVar, "小日向美穂")
             }
-        }.select(nameVar, titleVar, unitUrlVar, ageVar).limit(100)
+        }.select {
+            listOf(
+                nameVar, titleVar, unitUrlVar, ageVar,
+                concat(nameVar, titleVar).asVar("concat_test")
+            )
+        }.limit(100)
 
 
         Log.d("query", URLDecoder.decode(query.toString(), "UTF-8"))

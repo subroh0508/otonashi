@@ -9,5 +9,7 @@ data class ImasResult(
     val title: ValueSet,
     @SerialName("unit_url")
     val unitUrl: ValueSet,
-    val age: ValueSet
+    val age: ValueSet,
+    @SerialName("concat_test")
+    val concatTest: ValueSet
 )

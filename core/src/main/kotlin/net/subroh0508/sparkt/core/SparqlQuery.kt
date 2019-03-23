@@ -5,6 +5,7 @@ import net.subroh0508.sparkt.core.patterns.Where
 import net.subroh0508.sparkt.core.sequences.Limit
 import net.subroh0508.sparkt.core.sequences.Offset
 import net.subroh0508.sparkt.core.sequences.OrderBy
+import net.subroh0508.sparkt.core.triples.TripleItem
 import net.subroh0508.sparkt.core.triples.Var
 import java.net.URLEncoder
 
@@ -26,6 +27,11 @@ class SparqlQuery(
 
     fun select(vararg vars: Var): SparqlQuery {
         select = Select(*vars)
+        return this
+    }
+
+    fun select(scope: Select.Scope.() -> List<TripleItem>): SparqlQuery {
+        select = Select(scope(Select.Scope))
         return this
     }
 
