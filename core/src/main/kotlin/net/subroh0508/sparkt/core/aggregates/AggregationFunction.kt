@@ -1,11 +1,11 @@
-package net.subroh0508.sparkt.core.operators.functions
+package net.subroh0508.sparkt.core.aggregates
 
-import net.subroh0508.sparkt.core.operators.nodes.Node
+import net.subroh0508.sparkt.core.triples.TripleItem
 
-open class Function private constructor(
+class AggregationFunction private constructor(
     private val name: String,
     private val arguments: List<Any>
-) : Node {
+) : TripleItem {
     internal constructor(name: String, vararg arguments: Any) : this(name, arguments.toList())
 
     override fun toString() = buildString {

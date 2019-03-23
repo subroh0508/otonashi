@@ -14,6 +14,8 @@ import net.subroh0508.sparkt.core.Prefix
 import net.subroh0508.sparkt.core.SparqlQuery
 import net.subroh0508.sparkt.core.operators.functions.concat
 import net.subroh0508.sparkt.core.operators.functions.contains
+import net.subroh0508.sparkt.core.operators.functions.replace
+import net.subroh0508.sparkt.core.operators.functions.str
 import net.subroh0508.sparkt.core.triples.Var
 import java.net.URLDecoder
 
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun sendRequest() {
+        val subject = Var("s")
         val nameVar = Var("name")
         val unitUrlVar = Var("unit_url")
         val unitNameVar = Var("unit_name")
@@ -38,6 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         val rdfType = IriRef("rdf:type")
         val imasIdol = IriRef("imas:Idol")
+        val imasUnit = IriRef("imas:Unit")
         val schemaName = IriRef("schema:name")
         val imasTitle = IriRef("imas:Title")
         val schemaMemberOf = IriRef("schema:memberOf")
@@ -56,22 +60,30 @@ class MainActivity : AppCompatActivity() {
                 Prefix("rdfs", "<http://www.w3.org/2000/01/rdf-schema#>")
             )
         ).where {
-            Var("s") be {
+            subject be {
                 rdfType to imasIdol and
                 schemaName to nameVar and
                 imasTitle to titleVar and
-                schemaMemberOf to unitUrlVar and
-                age to ageVar
+                schemaMemberOf to unitUrlVar
             }
             filter {
-                contains(nameVar, "速水奏") or contains(nameVar, "小日向美穂")
+                contains(titleVar, "CinderellaGirls")
+            }
+            unitUrlVar be {
+                rdfType to imasUnit and
+                schemaName to unitNameVar
             }
         }.select {
             listOf(
-                nameVar, titleVar, unitUrlVar, ageVar,
-                concat(nameVar, titleVar).asVar("concat_test")
+                replace(
+                    str(subject),
+                    "https:\\\\/\\\\/sparql.crssnky.xyz\\\\/imasrdf\\\\/RDFs\\\\/detail\\\\/",
+                    ""
+                ).asVar("id"),
+                nameVar,
+                groupConcat(unitNameVar, ",").asVar("unit_names")
             )
-        }.limit(100)
+        }.groupBy(subject, nameVar).limit(100)
 
 
         Log.d("query", URLDecoder.decode(query.toString(), "UTF-8"))

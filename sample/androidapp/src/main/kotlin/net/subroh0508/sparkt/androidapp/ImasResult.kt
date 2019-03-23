@@ -5,11 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ImasResult(
+    val id: ValueSet,
     val name: ValueSet,
-    val title: ValueSet,
-    @SerialName("unit_url")
-    val unitUrl: ValueSet,
-    val age: ValueSet,
-    @SerialName("concat_test")
-    val concatTest: ValueSet
+    @SerialName("unit_names")
+    val unitNames: ValueSet
 )
