@@ -8,10 +8,11 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import net.subroh0508.sparkt.R
-import net.subroh0508.sparkt.core.IriRef
+import net.subroh0508.sparkt.core.triples.IriRef
 import net.subroh0508.sparkt.core.Prefix
 import net.subroh0508.sparkt.core.SparqlQuery
-import net.subroh0508.sparkt.core.Var
+import net.subroh0508.sparkt.core.triples.Var
+import java.net.URLDecoder
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,15 +53,17 @@ class MainActivity : AppCompatActivity() {
                 Prefix("rdfs", "<http://www.w3.org/2000/01/rdf-schema#>")
             )
         ).where {
-            Var("s") be rdfType to imasIdol and
-                    schemaName to nameVar and
-                    imasTitle to titleVar and
-                    schemaMemberOf to unitUrlVar and
-                    age to ageVar
+            Var("s") be {
+                rdfType to imasIdol and
+                schemaName to nameVar and
+                imasTitle to titleVar and
+                schemaMemberOf to unitUrlVar and
+                age to ageVar
+            }
         }.select(nameVar, titleVar, unitUrlVar, ageVar).limit(50)
 
 
-        Log.d("query", query.toString())
+        Log.d("query", URLDecoder.decode(query.toString(), "UTF-8"))
         GlobalScope.launch {
             val result = KtorClient.get(query.toString(), ImasResult::class)
             Log.d("result", result.joinToString("\n") { Json.stringify(ImasResult.serializer(), it) })
