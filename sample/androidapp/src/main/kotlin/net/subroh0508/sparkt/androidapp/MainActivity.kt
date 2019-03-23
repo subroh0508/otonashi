@@ -11,6 +11,8 @@ import net.subroh0508.sparkt.R
 import net.subroh0508.sparkt.core.triples.IriRef
 import net.subroh0508.sparkt.core.Prefix
 import net.subroh0508.sparkt.core.SparqlQuery
+import net.subroh0508.sparkt.core.operators.functions.concat
+import net.subroh0508.sparkt.core.operators.functions.contains
 import net.subroh0508.sparkt.core.triples.Var
 import java.net.URLDecoder
 
@@ -60,13 +62,18 @@ class MainActivity : AppCompatActivity() {
                 schemaMemberOf to unitUrlVar and
                 age to ageVar
             }
-        }.select(nameVar, titleVar, unitUrlVar, ageVar).limit(50)
+            filter {
+                contains(nameVar, "速水奏") or contains(nameVar, "小日向美穂")
+            }
+        }.select(nameVar, titleVar, unitUrlVar, ageVar).limit(100)
 
 
         Log.d("query", URLDecoder.decode(query.toString(), "UTF-8"))
         GlobalScope.launch {
             val result = KtorClient.get(query.toString(), ImasResult::class)
-            Log.d("result", result.joinToString("\n") { Json.stringify(ImasResult.serializer(), it) })
+            result.forEach {
+                Log.d("result", Json.stringify(ImasResult.serializer(), it))
+            }
         }
     }
 }
