@@ -1,11 +1,14 @@
 package net.subroh0508.sparkt.core
 
 import net.subroh0508.sparkt.core.aggregates.GroupBy
+import net.subroh0508.sparkt.core.aggregates.Having
+import net.subroh0508.sparkt.core.clauses.Clause
+import net.subroh0508.sparkt.core.clauses.Select
+import net.subroh0508.sparkt.core.operators.nodes.Node
 import net.subroh0508.sparkt.core.patterns.Where
 import net.subroh0508.sparkt.core.sequences.Limit
 import net.subroh0508.sparkt.core.sequences.Offset
 import net.subroh0508.sparkt.core.sequences.OrderBy
-import net.subroh0508.sparkt.core.triples.TripleItem
 import net.subroh0508.sparkt.core.triples.Var
 import java.net.URLEncoder
 
@@ -16,6 +19,7 @@ class SparqlQuery(
     private var select: Select = Select(Var("*"))
     private val where: Where by lazy(::Where)
     private var groupBy: GroupBy? = null
+    private var having: Having? = null
     private var orderBy: OrderBy? = null
     private var limit: Limit? = null
     private var offset: Offset? = null
@@ -30,13 +34,23 @@ class SparqlQuery(
         return this
     }
 
-    fun select(scope: Select.Scope.() -> List<TripleItem>): SparqlQuery {
-        select = Select(scope(Select.Scope))
+    fun select(scope: Clause.Scope.() -> List<Any>): SparqlQuery {
+        select = Select(scope(Clause.Scope))
         return this
     }
 
     fun groupBy(vararg vars: Var): SparqlQuery {
         groupBy = GroupBy(*vars)
+        return this
+    }
+
+    fun groupBy(scope: Clause.Scope.() -> List<Any>): SparqlQuery {
+        groupBy = GroupBy(scope(Clause.Scope))
+        return this
+    }
+
+    fun having(scope: Clause.Scope.() -> Node): SparqlQuery {
+        having = Having(scope(Clause.Scope))
         return this
     }
 
@@ -63,7 +77,7 @@ class SparqlQuery(
             append(
                 listOfNotNull(
                     select, where,
-                    groupBy,
+                    groupBy, having,
                     orderBy, limit, offset
                 ).joinToString(" ")
             )

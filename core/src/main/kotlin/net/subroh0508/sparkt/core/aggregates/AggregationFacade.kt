@@ -6,7 +6,7 @@ import net.subroh0508.sparkt.core.triples.Var
 
 interface AggregationFacade {
     fun average(node: Node) = AggregationFunction("AVG", node)
-    fun agerage(value: Var) = AggregationFunction("AVG", value)
+    fun average(value: Var) = AggregationFunction("AVG", value)
 
     fun count(node: Node) = AggregationFunction("COUNT", node)
     fun count(value: Var) = AggregationFunction("COUNT", value)

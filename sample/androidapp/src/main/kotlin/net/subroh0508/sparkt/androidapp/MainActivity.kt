@@ -78,9 +78,9 @@ class MainActivity : AppCompatActivity() {
                 str(subject),
                 """https://sparql.crssnky.xyz/imasrdf/RDFs/detail/""",
                 ""
-            ).asVar("id")
+            ) `as` "id"
 
-            idVar + nameVar + groupConcat(unitNameVar, ",").asVar("unit_names")
+            + idVar + nameVar + (groupConcat(unitNameVar, ",") `as` "unit_names")
         }.groupBy(subject, nameVar).limit(100)
 
 

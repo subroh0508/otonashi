@@ -5,7 +5,7 @@ abstract class BinaryOperator(
     private val right: Node,
     private val operator: String
 ) : Node  {
-    override fun toString() = "$left $operator $right"
+    override fun toString() = "($left $operator $right)"
 }
 
 class And(left: Node, right: Node) : BinaryOperator(left, right, "&&")
