@@ -1,8 +1,13 @@
 package net.subroh0508.sparkt.core.patterns
 
+import net.subroh0508.sparkt.core.triples.TripleFacade
 import net.subroh0508.sparkt.core.triples.TripleItem
+import net.subroh0508.sparkt.core.triples.TriplesStore
 
-class TriplePattern internal constructor(private val subject: TripleItem) : Pattern {
+class TriplePattern internal constructor(
+    private val subject: TripleItem,
+    store: TriplesStore
+) : Pattern, TripleFacade(store) {
     private object SemiColon : TripleItem {
         override fun toString() = ";"
     }

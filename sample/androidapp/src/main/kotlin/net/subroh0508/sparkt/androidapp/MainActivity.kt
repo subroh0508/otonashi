@@ -32,21 +32,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun sendRequest() {
-        val subject = Var("s")
-        val nameVar = Var("name")
-        val unitUrlVar = Var("unit_url")
-        val unitNameVar = Var("unit_name")
-        val titleVar = Var("title")
-        val ageVar = Var("age")
-
-        val rdfType = IriRef("rdf:type")
-        val imasIdol = IriRef("imas:Idol")
-        val imasUnit = IriRef("imas:Unit")
-        val schemaName = IriRef("schema:name")
-        val imasTitle = IriRef("imas:Title")
-        val schemaMemberOf = IriRef("schema:memberOf")
-        val age = IriRef("foaf:age")
-
         val query = SparqlQuery(
             "https://sparql.crssnky.xyz/spql/imas/query",
             listOf(
@@ -60,28 +45,28 @@ class MainActivity : AppCompatActivity() {
                 Prefix("rdfs", "<http://www.w3.org/2000/01/rdf-schema#>")
             )
         ).where {
-            subject be {
-                rdfType to imasIdol and
-                schemaName to nameVar and
-                imasTitle to titleVar and
-                schemaMemberOf to unitUrlVar
+            v["s"] be {
+                iri["rdf:type"] to iri["imas:Idol"] and
+                iri["schema:name"] to v["name"] and
+                iri["imas:Title"] to v["title"] and
+                iri["schema:memberOf"] to v["unit_url"]
             }
             filter {
-                contains(titleVar, "CinderellaGirls")
+                contains(v["title"], "CinderellaGirls")
             }
-            unitUrlVar be {
-                rdfType to imasUnit and
-                schemaName to unitNameVar
+            v["unit_url"] be {
+                iri["rdf:type"] to iri["imas:Unit"] and
+                iri["schema:name"] to v["unit_name"]
             }
         }.select {
-            val idVar = replace(
-                str(subject),
+            replace(
+                str(v["s"]),
                 """https://sparql.crssnky.xyz/imasrdf/RDFs/detail/""",
                 ""
             ) `as` "id"
 
-            + idVar + nameVar + (groupConcat(unitNameVar, ",") `as` "unit_names")
-        }.groupBy(subject, nameVar).limit(100)
+            + v["id"] + v["name"] + (groupConcat(v["unit_name"], ",") `as` "unit_names")
+        }.groupBy { + v["s"] + v["name"] }.limit(100)
 
 
         Log.d("query", URLDecoder.decode(query.toString(), "UTF-8"))

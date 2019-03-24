@@ -6,21 +6,21 @@ import net.subroh0508.sparkt.core.aggregates.AggregationFunction
 import net.subroh0508.sparkt.core.operators.BinaryOperatorFacade
 import net.subroh0508.sparkt.core.operators.FunctionFacade
 import net.subroh0508.sparkt.core.operators.nodes.Node
+import net.subroh0508.sparkt.core.triples.TripleFacade
+import net.subroh0508.sparkt.core.triples.TriplesStore
 import net.subroh0508.sparkt.core.triples.Var
 
 abstract class Clause internal constructor(
     private val name: String,
-    private val items: List<Any>
-) : QueryItem {
-    internal constructor(name: String, node: Node) : this(name, listOf(node))
-    internal constructor(name: String, func: AggregationFunction) : this(name, listOf(func))
+    private val items: List<Any>,
+    store: TriplesStore
+) : QueryItem, TripleFacade(store) {
+    internal constructor(name: String, node: Node, store: TriplesStore) : this(name, listOf(node), store)
+    internal constructor(name: String, func: AggregationFunction, store: TriplesStore) : this(name, listOf(func), store)
 
-    object Scope : BinaryOperatorFacade, FunctionFacade, AggregationFacade {
+    class Scope(store: TriplesStore) : BinaryOperatorFacade, FunctionFacade, AggregationFacade, TripleFacade(store) {
         operator fun Var.unaryPlus() = listOf(this)
         operator fun List<Var>.plus(other: Var) = this + listOf(other)
-
-        infix fun Node.`as`(name: String) = Var(name, this)
-        infix fun AggregationFunction.`as`(name: String) = Var(name, this)
     }
 
     override fun toString() = "$name ${items.joinToString(" ")}"

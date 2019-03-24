@@ -1,8 +1,9 @@
 package net.subroh0508.sparkt.core.patterns
 
 import net.subroh0508.sparkt.core.operators.nodes.Node
+import net.subroh0508.sparkt.core.triples.TriplesStore
 
-class Filter(private val node: Node? = null) : GraphPattern("FILTER") {
+class Filter(private val node: Node? = null, store: TriplesStore) : GraphPattern("FILTER", store) {
     override fun toString()
             = if (node != null) {
                 buildString {

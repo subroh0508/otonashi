@@ -1,3 +1,5 @@
 package net.subroh0508.sparkt.core.patterns
 
-class Optional internal constructor() : GraphPattern("OPTIONAL")
+import net.subroh0508.sparkt.core.triples.TriplesStore
+
+class Optional internal constructor(store: TriplesStore) : GraphPattern("OPTIONAL", store)

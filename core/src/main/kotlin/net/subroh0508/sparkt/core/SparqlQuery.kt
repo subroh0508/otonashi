@@ -9,15 +9,17 @@ import net.subroh0508.sparkt.core.patterns.Where
 import net.subroh0508.sparkt.core.sequences.Limit
 import net.subroh0508.sparkt.core.sequences.Offset
 import net.subroh0508.sparkt.core.sequences.OrderBy
+import net.subroh0508.sparkt.core.triples.TriplesStore
 import net.subroh0508.sparkt.core.triples.Var
 import java.net.URLEncoder
 
 class SparqlQuery(
     private val endpoint: String,
-    private val prefixes: List<Prefix>
+    private val prefixes: List<Prefix>,
+    private val triplesStore: TriplesStore = TriplesStore()
 ) {
-    private var select: Select = Select(Var("*"))
-    private val where: Where by lazy(::Where)
+    private var select: Select = Select(triplesStore, Var("*"))
+    private val where: Where by lazy { Where(triplesStore) }
     private var groupBy: GroupBy? = null
     private var having: Having? = null
     private var orderBy: OrderBy? = null
@@ -30,27 +32,27 @@ class SparqlQuery(
     }
 
     fun select(vararg vars: Var): SparqlQuery {
-        select = Select(*vars)
+        select = Select(triplesStore, *vars)
         return this
     }
 
     fun select(scope: Clause.Scope.() -> List<Any>): SparqlQuery {
-        select = Select(scope(Clause.Scope))
+        select = Select(triplesStore, scope(Clause.Scope(triplesStore)))
         return this
     }
 
     fun groupBy(vararg vars: Var): SparqlQuery {
-        groupBy = GroupBy(*vars)
+        groupBy = GroupBy(triplesStore, *vars)
         return this
     }
 
     fun groupBy(scope: Clause.Scope.() -> List<Any>): SparqlQuery {
-        groupBy = GroupBy(scope(Clause.Scope))
+        groupBy = GroupBy(triplesStore, scope(Clause.Scope(triplesStore)))
         return this
     }
 
     fun having(scope: Clause.Scope.() -> Node): SparqlQuery {
-        having = Having(scope(Clause.Scope))
+        having = Having(triplesStore, scope(Clause.Scope(triplesStore)))
         return this
     }
 

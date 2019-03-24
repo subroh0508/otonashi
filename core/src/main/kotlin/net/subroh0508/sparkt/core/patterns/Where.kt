@@ -1,3 +1,5 @@
 package net.subroh0508.sparkt.core.patterns
 
-class Where internal constructor() : GraphPattern("WHERE")
+import net.subroh0508.sparkt.core.triples.TriplesStore
+
+class Where internal constructor(store: TriplesStore) : GraphPattern("WHERE", store)
