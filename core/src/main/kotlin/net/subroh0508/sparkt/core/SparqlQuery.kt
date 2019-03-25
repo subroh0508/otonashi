@@ -19,6 +19,30 @@ class SparqlQuery private constructor(
     private val prefixes: List<Prefix>,
     private val vocabulary: Vocabulary
 ) {
+    companion object Builder {
+        private lateinit var endpoint: String
+        private var prefixes: List<Prefix> = emptyList()
+        private var vocabulary: Vocabulary = Vocabulary()
+
+        operator fun invoke(scope: SparqlQuery.Builder.() -> Unit): SparqlQuery {
+            val builder = apply(scope)
+
+            return SparqlQuery(builder.endpoint, builder.prefixes, builder.vocabulary)
+        }
+
+        fun endpoint(endpoint: String) {
+            this.endpoint = endpoint
+        }
+
+        fun prefixes(vararg prefixes: Prefix) {
+            this.prefixes = prefixes.toList()
+        }
+
+        fun install(vararg vocabularies: IriVocabulary) {
+            this.vocabulary = Vocabulary(*vocabularies)
+        }
+    }
+
     constructor(
         endpoint: String,
         prefixes: List<Prefix>,
