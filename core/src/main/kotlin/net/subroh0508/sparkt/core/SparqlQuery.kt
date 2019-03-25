@@ -9,17 +9,24 @@ import net.subroh0508.sparkt.core.patterns.Where
 import net.subroh0508.sparkt.core.sequences.Limit
 import net.subroh0508.sparkt.core.sequences.Offset
 import net.subroh0508.sparkt.core.sequences.OrderBy
-import net.subroh0508.sparkt.core.triples.TriplesStore
 import net.subroh0508.sparkt.core.triples.Var
+import net.subroh0508.sparkt.core.vocabulary.IriVocabulary
+import net.subroh0508.sparkt.core.vocabulary.Vocabulary
 import java.net.URLEncoder
 
-class SparqlQuery(
+class SparqlQuery private constructor(
     private val endpoint: String,
     private val prefixes: List<Prefix>,
-    private val triplesStore: TriplesStore = TriplesStore()
+    private val vocabulary: Vocabulary
 ) {
-    private var select: Select = Select(triplesStore, Var("*"))
-    private val where: Where by lazy { Where(triplesStore) }
+    constructor(
+        endpoint: String,
+        prefixes: List<Prefix>,
+        vararg iriVocab: IriVocabulary
+    ) : this(endpoint, prefixes, Vocabulary(*iriVocab))
+
+    private var select: Select = Select(vocabulary, Var("*"))
+    private val where: Where by lazy { Where(vocabulary) }
     private var groupBy: GroupBy? = null
     private var having: Having? = null
     private var orderBy: OrderBy? = null
@@ -32,27 +39,27 @@ class SparqlQuery(
     }
 
     fun select(vararg vars: Var): SparqlQuery {
-        select = Select(triplesStore, *vars)
+        select = Select(vocabulary, *vars)
         return this
     }
 
     fun select(scope: Clause.Scope.() -> List<Any>): SparqlQuery {
-        select = Select(triplesStore, scope(Clause.Scope(triplesStore)))
+        select = Select(vocabulary, scope(Clause.Scope(vocabulary)))
         return this
     }
 
     fun groupBy(vararg vars: Var): SparqlQuery {
-        groupBy = GroupBy(triplesStore, *vars)
+        groupBy = GroupBy(vocabulary, *vars)
         return this
     }
 
     fun groupBy(scope: Clause.Scope.() -> List<Any>): SparqlQuery {
-        groupBy = GroupBy(triplesStore, scope(Clause.Scope(triplesStore)))
+        groupBy = GroupBy(vocabulary, scope(Clause.Scope(vocabulary)))
         return this
     }
 
     fun having(scope: Clause.Scope.() -> Node): SparqlQuery {
-        having = Having(triplesStore, scope(Clause.Scope(triplesStore)))
+        having = Having(vocabulary, scope(Clause.Scope(vocabulary)))
         return this
     }
 

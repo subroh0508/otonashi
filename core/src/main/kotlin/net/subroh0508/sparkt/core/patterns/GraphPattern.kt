@@ -6,28 +6,30 @@ import net.subroh0508.sparkt.core.operators.FunctionFacade
 import net.subroh0508.sparkt.core.operators.nodes.Node
 import net.subroh0508.sparkt.core.triples.TripleFacade
 import net.subroh0508.sparkt.core.triples.TripleItem
-import net.subroh0508.sparkt.core.triples.TriplesStore
+import net.subroh0508.sparkt.core.vocabulary.Vocabulary
 
 abstract class GraphPattern internal constructor(
     protected val prefix: String,
-    store: TriplesStore
-) : Pattern, QueryItem, TripleFacade(store) {
-    class Scope(store: TriplesStore) : BinaryOperatorFacade, FunctionFacade, TripleFacade(store)
+    private val vocabulary: Vocabulary
+) : Pattern, QueryItem, TripleFacade(vocabulary) {
+    class Scope internal constructor(
+        vocabulary: Vocabulary
+    ) : BinaryOperatorFacade, FunctionFacade, TripleFacade(vocabulary)
 
     protected val patterns: MutableList<Pattern> = mutableListOf()
 
     infix fun TripleItem.be(pattern: TriplePattern.() -> Unit): GraphPattern {
-        patterns.add(TriplePattern(this, store).apply(pattern))
+        patterns.add(TriplePattern(this, vocabulary).apply(pattern))
         return this@GraphPattern
     }
 
     fun optional(optional: Optional.() -> Unit): GraphPattern {
-        patterns.add(Optional(store).apply(optional))
+        patterns.add(Optional(vocabulary).apply(optional))
         return this
     }
 
     fun filter(filter: GraphPattern.Scope.() -> Node): GraphPattern {
-        patterns.add(Filter(filter(GraphPattern.Scope(store)), store))
+        patterns.add(Filter(filter(GraphPattern.Scope(vocabulary)), vocabulary))
         return this
     }
 

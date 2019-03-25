@@ -1,9 +1,12 @@
 package net.subroh0508.sparkt.core.patterns
 
 import net.subroh0508.sparkt.core.operators.nodes.Node
-import net.subroh0508.sparkt.core.triples.TriplesStore
+import net.subroh0508.sparkt.core.vocabulary.Vocabulary
 
-class Filter(private val node: Node? = null, store: TriplesStore) : GraphPattern("FILTER", store) {
+class Filter internal constructor(
+    private val node: Node? = null,
+    vocabulary: Vocabulary
+) : GraphPattern("FILTER", vocabulary) {
     override fun toString()
             = if (node != null) {
                 buildString {

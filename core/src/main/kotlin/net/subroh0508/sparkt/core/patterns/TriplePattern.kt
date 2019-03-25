@@ -2,12 +2,12 @@ package net.subroh0508.sparkt.core.patterns
 
 import net.subroh0508.sparkt.core.triples.TripleFacade
 import net.subroh0508.sparkt.core.triples.TripleItem
-import net.subroh0508.sparkt.core.triples.TriplesStore
+import net.subroh0508.sparkt.core.vocabulary.Vocabulary
 
 class TriplePattern internal constructor(
     private val subject: TripleItem,
-    store: TriplesStore
-) : Pattern, TripleFacade(store) {
+    vocabulary: Vocabulary
+) : Pattern, TripleFacade(vocabulary) {
     private object SemiColon : TripleItem {
         override fun toString() = ";"
     }

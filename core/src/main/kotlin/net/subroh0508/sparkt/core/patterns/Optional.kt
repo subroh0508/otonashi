@@ -1,5 +1,5 @@
 package net.subroh0508.sparkt.core.patterns
 
-import net.subroh0508.sparkt.core.triples.TriplesStore
+import net.subroh0508.sparkt.core.vocabulary.Vocabulary
 
-class Optional internal constructor(store: TriplesStore) : GraphPattern("OPTIONAL", store)
+class Optional internal constructor(vocabulary: Vocabulary) : GraphPattern("OPTIONAL", vocabulary)
