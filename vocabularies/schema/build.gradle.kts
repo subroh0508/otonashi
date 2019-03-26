@@ -23,8 +23,8 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":core"))
-    implementation(Dep.Kotlin.stdlibJdk8)
+    compile(project(":core"))
+    compile(Dep.Kotlin.stdlibJdk8)
     testCompile(Dep.junit)
 }
 

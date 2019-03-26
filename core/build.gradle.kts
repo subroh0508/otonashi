@@ -24,7 +24,7 @@ repositories {
 }
 
 dependencies {
-    implementation(Dep.Kotlin.stdlibJdk8)
+    compile(Dep.Kotlin.stdlibJdk8)
     testCompile(Dep.junit)
 }
 

@@ -33,7 +33,7 @@ dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
     implementation(project(":core"))
     implementation(project(":vocabularies:schema"))
-    implementation(project(":vocabularies:imasparql"))
+    implementation(Dep.SPARkt.imasparql)
     implementation(Dep.Kotlin.stdlibJdk7)
     implementation(Dep.AndroidX.appCompat)
     implementation(Dep.AndroidX.ktx)
