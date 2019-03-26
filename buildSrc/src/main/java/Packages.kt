@@ -4,7 +4,11 @@ object Packages {
     const val minSdkVersion = 21
     const val targetSdkVersion = 28
 
-    const val applicationId = "net.subroh0508.sparkl.sampleapp"
+    const val applicationId = "net.subroh0508.sparkt.sampleapp"
     const val versionCode = 1
-    const val versionName = "1.0.0"
+    const val versionName = "0.0.1"
+
+    const val groupId = "net.subroh0508.sparkt"
+    const val siteUrl = "https://github.com/subroh0508/SPARkt"
+    const val githubUrl = "https://github.com/subroh0508/SPARkt"
 }
