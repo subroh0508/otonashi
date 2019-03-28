@@ -38,6 +38,26 @@ subprojects {
                     groupId = project.group as String
                     artifactId = project.name
                     version = versionName
+                    pom {
+                        url.set(Packages.githubUrl)
+                        licenses {
+                            license {
+                                name.set("The MIT License")
+                                url.set("https://opensource.org/licenses/MIT")
+                                distribution.set("repo")
+                            }
+                        }
+                        developers {
+                            developer {
+                                id.set("subroh0508")
+                                name.set("Subroh Nishikori")
+                                email.set("subroh.0508@gmail.com")
+                            }
+                        }
+                        scm {
+                            url.set(Packages.githubUrl)
+                        }
+                    }
                     artifact(sourceJar.get())
                     from(components["java"])
                 }

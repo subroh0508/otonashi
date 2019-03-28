@@ -6,7 +6,7 @@ object Packages {
 
     const val applicationId = "net.subroh0508.sparkt.sampleapp"
     const val versionCode = 1
-    const val versionName = "0.0.10"
+    const val versionName = "0.0.11"
 
     const val groupId = "net.subroh0508.sparkt"
     const val siteUrl = "https://github.com/subroh0508/SPARkt"
