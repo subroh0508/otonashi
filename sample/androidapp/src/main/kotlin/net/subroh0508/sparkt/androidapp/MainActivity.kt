@@ -1,31 +1,23 @@
 package net.subroh0508.sparkt.androidapp
 
 import android.os.Bundle
-import android.text.TextUtils.replace
 import android.util.Log
-import android.util.Log.v
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import net.subroh0508.sparkt.R
-import net.subroh0508.sparkt.core.vocabulary.common.CommonPrefix
 import net.subroh0508.sparkt.core.SparqlQuery
-import net.subroh0508.sparkt.core.SparqlQuery.Builder.endpoint
-import net.subroh0508.sparkt.core.SparqlQuery.Builder.prefixes
-import net.subroh0508.sparkt.core.extensions.get
 import net.subroh0508.sparkt.core.operators.functions.contains
 import net.subroh0508.sparkt.core.operators.functions.replace
 import net.subroh0508.sparkt.core.operators.functions.str
-import net.subroh0508.sparkt.core.vocabulary.IriVocabulary
 import net.subroh0508.sparkt.core.vocabulary.common.Rdf
 import net.subroh0508.sparkt.core.vocabulary.common.rdf
 import net.subroh0508.sparkt.vocabraries.imasparql.*
 import net.subroh0508.sparkt.vocabraries.schema.Schema
 import net.subroh0508.sparkt.vocabraries.schema.schema
 import java.net.URLDecoder
-import java.util.Locale.filter
 
 class MainActivity : AppCompatActivity() {
     private val client: SparqlQuery by lazy {

@@ -1,8 +1,8 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    kotlin("android.extensions")
     id("kotlinx-serialization")
-    id("kotlin-android-extensions")
 }
 
 android {
@@ -31,8 +31,8 @@ android {
 
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
-    implementation(project(":core"))
-    implementation(project(":vocabularies:schema"))
+    implementation(Dep.SPARkt.core)
+    implementation(Dep.SPARkt.schema)
     implementation(Dep.SPARkt.imasparql)
     implementation(Dep.Kotlin.stdlibJdk7)
     implementation(Dep.AndroidX.appCompat)
