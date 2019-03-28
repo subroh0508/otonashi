@@ -26,6 +26,6 @@ val compileKotlin by tasks.getting(KotlinCompile::class) {
     }
 }
 
-val bintrayTask: (libraryName: String) -> Unit by ext
+val bintrayTask: (libraryName: String, versionName: String) -> Unit by ext
 
-bintrayTask("SPARkt")
+bintrayTask("SPARkt", Packages.versionName)

@@ -6,9 +6,26 @@ object Packages {
 
     const val applicationId = "net.subroh0508.sparkt.sampleapp"
     const val versionCode = 1
-    const val versionName = "0.0.8"
+    const val versionName = "0.0.10"
 
     const val groupId = "net.subroh0508.sparkt"
     const val siteUrl = "https://github.com/subroh0508/SPARkt"
     const val githubUrl = "https://github.com/subroh0508/SPARkt"
+
+    object Vocabularies {
+        object Schema {
+            const val versionCode = 1
+            const val versionName = "0.0.8"
+        }
+
+        object Foaf {
+            const val versionCode = 1
+            const val versionName = "0.0.8"
+        }
+
+        object Imasparql {
+            const val versionCode = 1
+            const val versionName = "0.0.8"
+        }
+    }
 }

@@ -23,7 +23,7 @@ object Versions {
 
     const val ktor = "1.1.3"
 
-    const val sparkt = "0.0.8"
+    const val sparkt = "0.0.9"
 
     const val junit = "4.12"
 }

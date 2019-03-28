@@ -40,10 +40,10 @@ object Dep {
     }
 
     object SPARkt {
-        const val core = "net.subroh0508.sparkt:core:${Versions.sparkt}"
-        const val schema = "net.subroh0508.sparkt.vocabularies:schema:${Versions.sparkt}"
-        const val foaf = "net.subroh0508.sparkt.vocabularies:foaf:${Versions.sparkt}"
-        const val imasparql = "net.subroh0508.sparkt.vocabularies:imasparql:${Versions.sparkt}"
+        const val core = "net.subroh0508.sparkt:core:${Packages.versionName}"
+        const val schema = "net.subroh0508.sparkt.vocabularies:schema:${Packages.Vocabularies.Schema.versionName}"
+        const val foaf = "net.subroh0508.sparkt.vocabularies:foaf:${Packages.Vocabularies.Foaf.versionName}"
+        const val imasparql = "net.subroh0508.sparkt.vocabularies:imasparql:${Packages.Vocabularies.Imasparql.versionName}"
     }
     const val junit = "junit:junit:${Versions.junit}"
 }

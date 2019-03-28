@@ -23,7 +23,7 @@ subprojects {
         plugin(Dep.GradlePlugin.jfrog)
     }
 
-    ext["bintrayTask"] = { libraryName: String ->
+    ext["bintrayTask"] = { libraryName: String, versionName: String ->
         val sourceSets: SourceSetContainer by extensions
         val sourceJar by tasks.registering(Jar::class) {
             classifier = "sources"
@@ -37,7 +37,7 @@ subprojects {
                 register(publicationName, MavenPublication::class) {
                     groupId = project.group as String
                     artifactId = project.name
-                    version = Packages.versionName
+                    version = versionName
                     artifact(sourceJar.get())
                     from(components["java"])
                 }
@@ -58,7 +58,7 @@ subprojects {
                 vcsUrl = "${Packages.githubUrl}.git"
                 issueTrackerUrl = "${Packages.githubUrl}/issues"
                 publicDownloadNumbers = true
-                version.name = Packages.versionName
+                version.name = versionName
                 version.released = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(Date())
             })
         }
