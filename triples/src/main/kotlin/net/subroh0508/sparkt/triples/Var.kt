@@ -4,12 +4,12 @@ import net.subroh0508.sparkt.triples.extensions.camelize
 
 data class Var constructor(
     internal val value: String,
-    private val func: Any?
+    private val renamed: TripleItem?
 ) : TripleItem {
     constructor(value: String) : this(value, null)
-    constructor(v: Var, func: Any?) : this(v.value, func)
+    constructor(v: Var, renamed: TripleItem?) : this(v.value, renamed)
 
-    override fun toString() = if (func == null) "?$value" else "($func as ?$value)"
+    override fun toString() = if (renamed == null) "?$value" else "($renamed as ?$value)"
 
     val camelizeName: String get() = value.camelize()
 }

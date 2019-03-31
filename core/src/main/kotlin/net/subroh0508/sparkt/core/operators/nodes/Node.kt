@@ -1,6 +1,8 @@
 package net.subroh0508.sparkt.core.operators.nodes
 
-interface Node {
+import net.subroh0508.sparkt.triples.TripleItem
+
+interface Node : TripleItem {
     infix fun and(other: Node) = And(this, other)
 
     infix fun or(other: Node) = Or(this, other)

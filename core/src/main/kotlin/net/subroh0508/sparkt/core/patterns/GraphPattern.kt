@@ -4,17 +4,20 @@ import net.subroh0508.sparkt.core.QueryItem
 import net.subroh0508.sparkt.core.operators.BinaryOperatorFacade
 import net.subroh0508.sparkt.core.operators.FunctionFacade
 import net.subroh0508.sparkt.core.operators.nodes.Node
-import net.subroh0508.sparkt.core.triples.TripleFacadeImpl
+import net.subroh0508.sparkt.core.triples.TripleFacadeDelegate
 import net.subroh0508.sparkt.core.vocabulary.Vocabulary
+import net.subroh0508.sparkt.triples.TripleFacade
 import net.subroh0508.sparkt.triples.TripleItem
 
 abstract class GraphPattern internal constructor(
     protected val prefix: String,
     private val vocabulary: Vocabulary
-) : Pattern, QueryItem, TripleFacadeImpl(vocabulary) {
+) : Pattern, QueryItem, TripleFacade by TripleFacadeDelegate(vocabulary) {
     class Scope internal constructor(
         vocabulary: Vocabulary
-    ) : BinaryOperatorFacade, FunctionFacade, TripleFacadeImpl(vocabulary)
+    ) : BinaryOperatorFacade,
+        FunctionFacade,
+        TripleFacade by TripleFacadeDelegate(vocabulary)
 
     protected val patterns: MutableList<Pattern> = mutableListOf()
 
