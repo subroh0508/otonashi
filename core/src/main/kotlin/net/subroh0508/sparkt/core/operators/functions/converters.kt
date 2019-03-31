@@ -2,7 +2,7 @@ package net.subroh0508.sparkt.core.operators.functions
 
 import net.subroh0508.sparkt.core.aggregates.AggregationFunction
 import net.subroh0508.sparkt.core.operators.FunctionFacade
-import net.subroh0508.sparkt.core.triples.Var
+import net.subroh0508.sparkt.triples.Var
 
 fun FunctionFacade.isIRI(value: Var) = Function("isIRI", value)
 

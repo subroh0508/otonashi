@@ -9,9 +9,10 @@ import net.subroh0508.sparkt.core.patterns.Where
 import net.subroh0508.sparkt.core.sequences.Limit
 import net.subroh0508.sparkt.core.sequences.Offset
 import net.subroh0508.sparkt.core.sequences.OrderBy
-import net.subroh0508.sparkt.core.triples.Var
-import net.subroh0508.sparkt.core.vocabulary.IriVocabulary
 import net.subroh0508.sparkt.core.vocabulary.Vocabulary
+import net.subroh0508.sparkt.triples.Prefix
+import net.subroh0508.sparkt.triples.Var
+import net.subroh0508.sparkt.triples.vocabulary.IriVocabulary
 import java.net.URLEncoder
 
 class SparqlQuery private constructor(

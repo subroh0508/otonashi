@@ -1,6 +1,7 @@
 rootProject.name = "sparkt"
 
 include(":core",
+        "triples",
         ":vocabularies:schema",
         ":vocabularies:foaf",
         ":vocabularies:imasparql",

@@ -1,6 +1,6 @@
 package net.subroh0508.sparkt.core.vocabulary.common
 
-import net.subroh0508.sparkt.core.Prefix
+import net.subroh0508.sparkt.triples.Prefix
 
 enum class CommonPrefix(
     override val prefix: String,

@@ -1,8 +1,8 @@
 package net.subroh0508.sparkt.core.aggregates
 
 import net.subroh0508.sparkt.core.clauses.Clause
-import net.subroh0508.sparkt.core.triples.Var
 import net.subroh0508.sparkt.core.vocabulary.Vocabulary
+import net.subroh0508.sparkt.triples.Var
 
 class GroupBy : Clause {
     internal constructor(vocabulary: Vocabulary, vars: List<Any>) : super("GROUP BY", vars, vocabulary)

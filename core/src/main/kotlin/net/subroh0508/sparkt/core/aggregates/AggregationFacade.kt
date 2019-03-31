@@ -2,7 +2,7 @@ package net.subroh0508.sparkt.core.aggregates
 
 import net.subroh0508.sparkt.core.operators.nodes.Constant
 import net.subroh0508.sparkt.core.operators.nodes.Node
-import net.subroh0508.sparkt.core.triples.Var
+import net.subroh0508.sparkt.triples.Var
 
 interface AggregationFacade {
     fun average(node: Node) = AggregationFunction("AVG", node)

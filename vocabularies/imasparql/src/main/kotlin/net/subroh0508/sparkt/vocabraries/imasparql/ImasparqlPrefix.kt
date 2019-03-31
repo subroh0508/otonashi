@@ -1,6 +1,6 @@
 package net.subroh0508.sparkt.vocabraries.imasparql
 
-import net.subroh0508.sparkt.core.Prefix
+import net.subroh0508.sparkt.triples.Prefix
 
 enum class ImasparqlPrefix(
     override val prefix: String,

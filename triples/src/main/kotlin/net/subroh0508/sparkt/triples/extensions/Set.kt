@@ -1,6 +1,6 @@
-package net.subroh0508.sparkt.core.extensions
+package net.subroh0508.sparkt.triples.extensions
 
-import net.subroh0508.sparkt.core.vocabulary.IriVocabulary
+import net.subroh0508.sparkt.triples.vocabulary.IriVocabulary
 import kotlin.reflect.KClass
 
 @Suppress("UNCHECKED_CAST")

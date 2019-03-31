@@ -4,7 +4,7 @@ import net.subroh0508.sparkt.core.aggregates.AggregationFunction
 import net.subroh0508.sparkt.core.operators.FunctionFacade
 import net.subroh0508.sparkt.core.operators.nodes.Constant
 import net.subroh0508.sparkt.core.operators.nodes.Node
-import net.subroh0508.sparkt.core.triples.Var
+import net.subroh0508.sparkt.triples.Var
 
 fun FunctionFacade.contains(value: Var, expect: String) = Function("contains", value, Constant(expect))
 fun FunctionFacade.contains(value: Node, expect: String) = Function("contains", value, Constant(expect))

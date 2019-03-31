@@ -1,6 +1,6 @@
 package net.subroh0508.sparkt.vocabraries.imasparql
 
-import net.subroh0508.sparkt.core.vocabulary.IriVocabulary
+import net.subroh0508.sparkt.triples.vocabulary.IriVocabulary
 
 object ImasparqlClass : IriVocabulary(
     "imas",

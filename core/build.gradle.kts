@@ -16,6 +16,7 @@ repositories {
 }
 
 dependencies {
+    compile(project(":triples"))
     compile(Dep.Kotlin.stdlibJdk8)
     testCompile(Dep.junit)
 }

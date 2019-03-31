@@ -4,7 +4,7 @@ plugins {
     kotlin("jvm")
 }
 
-group = "net.subroh0508.sparkt.vocabularies"
+group = "net.subroh0508.sparkt"
 version = "1.0-SNAPSHOT"
 
 java {
@@ -16,7 +16,6 @@ repositories {
 }
 
 dependencies {
-    compile(project(":triples"))
     compile(Dep.Kotlin.stdlibJdk8)
     testCompile(Dep.junit)
 }
@@ -29,4 +28,4 @@ val compileKotlin by tasks.getting(KotlinCompile::class) {
 
 val bintrayTask: (libraryName: String, versionName: String) -> Unit by ext
 
-bintrayTask("SPARkt-Imasparql", Packages.Vocabularies.Imasparql.versionName)
+bintrayTask("SPARkt-Triples", Packages.versionName)

@@ -1,6 +1,6 @@
-package net.subroh0508.sparkt.core.vocabulary
+package net.subroh0508.sparkt.triples.vocabulary
 
-import net.subroh0508.sparkt.core.triples.Iri
+import net.subroh0508.sparkt.triples.Iri
 import kotlin.reflect.KProperty
 
 abstract class IriVocabulary(

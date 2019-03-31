@@ -1,7 +1,7 @@
 package net.subroh0508.sparkt.core.operators
 
 import net.subroh0508.sparkt.core.operators.nodes.*
-import net.subroh0508.sparkt.core.triples.Var
+import net.subroh0508.sparkt.triples.Var
 
 interface BinaryOperatorFacade {
     infix fun Var.and(other: Var) = And(Variable(this), Variable(other))

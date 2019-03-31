@@ -1,4 +1,4 @@
-package net.subroh0508.sparkt.core
+package net.subroh0508.sparkt.triples
 
 interface Prefix {
     val prefix: String

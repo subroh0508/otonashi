@@ -1,4 +1,4 @@
-package net.subroh0508.sparkt.core.extensions
+package net.subroh0508.sparkt.triples.extensions
 
 fun String.camelize() = buildString {
     val str = this@camelize.split("_")
