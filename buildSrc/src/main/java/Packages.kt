@@ -6,7 +6,7 @@ object Packages {
 
     const val applicationId = "net.subroh0508.otonashi.sampleapp"
     const val versionCode = 1
-    const val versionName = "0.0.11"
+    const val versionName = "0.1.0"
 
     const val groupId = "net.subroh0508.otonashi"
     const val siteUrl = "https://github.com/subroh0508/otonashi"
@@ -15,17 +15,17 @@ object Packages {
     object Vocabularies {
         object Schema {
             const val versionCode = 1
-            const val versionName = "0.0.8"
+            const val versionName = "0.0.1"
         }
 
         object Foaf {
             const val versionCode = 1
-            const val versionName = "0.0.8"
+            const val versionName = "0.0.1"
         }
 
         object Imasparql {
             const val versionCode = 1
-            const val versionName = "0.0.8"
+            const val versionName = "0.0.1"
         }
     }
 }
