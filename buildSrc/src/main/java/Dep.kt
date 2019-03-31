@@ -39,7 +39,7 @@ object Dep {
         const val jsonJvm = "io.ktor:ktor-client-json-jvm:${Versions.ktor}"
     }
 
-    object SPARkt {
+    object Otonashi {
         const val core = "net.subroh0508.sparkt:core:${Packages.versionName}"
         const val schema = "net.subroh0508.sparkt.vocabularies:schema:${Packages.Vocabularies.Schema.versionName}"
         const val foaf = "net.subroh0508.sparkt.vocabularies:foaf:${Packages.Vocabularies.Foaf.versionName}"

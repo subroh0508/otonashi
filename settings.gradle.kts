@@ -1,4 +1,4 @@
-rootProject.name = "sparkt"
+rootProject.name = "otonashi"
 
 include(":core",
         "triples",

@@ -1,4 +1,4 @@
-package net.subroh0508.sparkt
+package net.subroh0508.otonashi
 
 import org.junit.Test
 

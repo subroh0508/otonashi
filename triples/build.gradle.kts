@@ -4,7 +4,7 @@ plugins {
     kotlin("jvm")
 }
 
-group = "net.subroh0508.sparkt"
+group = "net.subroh0508.otonashi"
 version = "1.0-SNAPSHOT"
 
 java {
@@ -28,4 +28,4 @@ val compileKotlin by tasks.getting(KotlinCompile::class) {
 
 val bintrayTask: (libraryName: String, versionName: String) -> Unit by ext
 
-bintrayTask("SPARkt-Triples", Packages.versionName)
+bintrayTask("Otonashi-Triples", Packages.versionName)

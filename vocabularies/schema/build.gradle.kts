@@ -4,7 +4,7 @@ plugins {
     kotlin("jvm")
 }
 
-group = "net.subroh0508.sparkt.vocabularies"
+group = "net.subroh0508.otonashi.vocabularies"
 version = "1.0-SNAPSHOT"
 
 java {
@@ -29,4 +29,4 @@ val compileKotlin by tasks.getting(KotlinCompile::class) {
 
 val bintrayTask: (libraryName: String, versionName: String) -> Unit by ext
 
-bintrayTask("SPARkt-Schema", Packages.Vocabularies.Schema.versionName)
+bintrayTask("Otonashi-Schema", Packages.Vocabularies.Schema.versionName)
