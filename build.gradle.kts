@@ -68,7 +68,7 @@ subprojects {
             user = project.findProperty("bintray_user") as String
             key = project.findProperty("bintray_key") as String
 
-            publish = true
+            publish = false
             setPublications(publicationName)
             pkg(delegateClosureOf<BintrayExtension.PackageConfig> {
                 repo = "maven"

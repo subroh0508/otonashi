@@ -2,6 +2,7 @@ rootProject.name = "otonashi"
 
 include(":core",
         "triples",
+        ":vocabularies:generator",
         ":vocabularies:schema",
         ":vocabularies:foaf",
         ":vocabularies:imasparql",
@@ -12,6 +13,7 @@ pluginManagement {
         google()
         jcenter()
         gradlePluginPortal()
+        mavenLocal()
         maven("https://kotlin.bintray.com/kotlinx")
     }
 
