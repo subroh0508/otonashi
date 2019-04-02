@@ -13,6 +13,11 @@ object Packages {
     const val githubUrl = "https://github.com/subroh0508/otonashi"
 
     object Vocabularies {
+        object Generator {
+            const val versionCode = 1
+            const val versionName = "0.0.1"
+        }
+
         object Schema {
             const val versionCode = 1
             const val versionName = "0.0.1"

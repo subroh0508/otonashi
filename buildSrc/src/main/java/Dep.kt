@@ -6,7 +6,6 @@ object Dep {
         const val kotlinSerialization = "org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}"
 
         const val jfrog = "com.jfrog.bintray"
-        const val shadow = "com.github.johnrengelman.shadow"
     }
 
     object Kotlin {
