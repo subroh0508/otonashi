@@ -23,6 +23,8 @@ object Versions {
 
     const val ktor = "1.1.3"
 
+    const val okhttp3 = "3.14.0"
+
     const val otonashi = "0.0.9"
 
     const val junit = "4.12"

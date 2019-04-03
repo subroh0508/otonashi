@@ -34,9 +34,12 @@ object Dep {
     object Ktor {
         const val clientCommon = "io.ktor:ktor-client-core:${Versions.ktor}"
         const val clientAndroid = "io.ktor:ktor-client-android:${Versions.ktor}"
+        const val clientApache = "io.ktor:ktor-client-apache:${Versions.ktor}"
         const val jsonCommon = "io.ktor:ktor-client-json:${Versions.ktor}"
         const val jsonJvm = "io.ktor:ktor-client-json-jvm:${Versions.ktor}"
     }
+
+    const val okhttp3 = "com.squareup.okhttp3:okhttp:${Versions.okhttp3}"
 
     object Otonashi {
         const val core = "net.subroh0508.sparkt:core:${Packages.versionName}"

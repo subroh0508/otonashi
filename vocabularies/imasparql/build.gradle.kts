@@ -30,6 +30,7 @@ val compileKotlin by tasks.getting(KotlinCompile::class) {
 
 generateVocabulary {
     endpoint = "https://sparql.crssnky.xyz/imasrdf/URIs/imas-schema.ttl"
+    outputPath = "src/main/kotlin"
 }
 
 val bintrayTask: (libraryName: String, versionName: String) -> Unit by ext

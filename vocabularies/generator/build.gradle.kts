@@ -31,6 +31,7 @@ repositories {
 
 dependencies {
     compile(Dep.Kotlin.stdlibJdk8)
+    compile(Dep.okhttp3)
     testCompile(Dep.junit)
 }
 
