@@ -15,7 +15,7 @@ import net.subroh0508.otonashi.triples.Var
 import net.subroh0508.otonashi.triples.vocabulary.IriVocabulary
 import java.net.URLEncoder
 
-class SparqlQuery private constructor(
+class SparqlQuery internal constructor(
     private val endpoint: String,
     private val prefixes: List<Prefix>,
     private val vocabulary: Vocabulary
@@ -43,12 +43,6 @@ class SparqlQuery private constructor(
             this.vocabulary = Vocabulary(*vocabularies)
         }
     }
-
-    constructor(
-        endpoint: String,
-        prefixes: List<Prefix>,
-        vararg iriVocab: IriVocabulary
-    ) : this(endpoint, prefixes, Vocabulary(*iriVocab))
 
     private var select: Select = Select(vocabulary, Var("*"))
     private val where: Where by lazy { Where(vocabulary) }
