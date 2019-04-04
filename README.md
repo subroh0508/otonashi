@@ -12,6 +12,7 @@ features
   - RDF: https://www.w3.org/1999/02/22-rdf-syntax-ns
   - RDF-Schema: http://www.w3.org/2000/01/rdf-schema
   - Schema.org: https://schema.org
+  - foaf: http://xmlns.com/foaf/spec/20140114.html
   - Im@sparql: https://sparql.crssnky.xyz/imas/
   
 ## Install
