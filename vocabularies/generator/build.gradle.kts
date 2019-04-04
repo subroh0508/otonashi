@@ -15,7 +15,7 @@ gradlePlugin {
     plugins {
         create("generateVocabulary") {
             id = "net.subroh0508.otonashi-vocabularies-generator"
-            version = Packages.Vocabularies.Generator.versionName
+            version = Packages.Vocabularies.generatorVersion
             implementationClass = "net.subroh0508.otonashi.vocabulary.generator.OtonashiVocabularyGeneratorPlugin"
         }
     }
@@ -43,4 +43,4 @@ val compileKotlin by tasks.getting(KotlinCompile::class) {
 
 val bintrayTask: (libraryName: String, versionName: String) -> Unit by ext
 
-bintrayTask("Otonashi-VocabularyGenerator", Packages.Vocabularies.Generator.versionName)
+bintrayTask("Otonashi-VocabularyGenerator", Packages.Vocabularies.generatorVersion)

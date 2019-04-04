@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm")
-    id("net.subroh0508.otonashi-vocabularies-generator") version Packages.Vocabularies.Generator.versionName
+    id("net.subroh0508.otonashi-vocabularies-generator") version Packages.Vocabularies.generatorVersion
 }
 
 group = "net.subroh0508.otonashi.vocabularies"
@@ -38,4 +38,4 @@ generateVocabulary {
 
 val bintrayTask: (libraryName: String, versionName: String) -> Unit by ext
 
-bintrayTask("Otonashi-Schema", Packages.Vocabularies.Schema.versionName)
+bintrayTask("Otonashi-Schema", Packages.Vocabularies.schemaVersion)
