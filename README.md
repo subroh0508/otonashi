@@ -95,7 +95,7 @@ print(query.toString()) // => SELECT (replace(...
 
 ## Special Thanks
 
-im@sparql dataset & its endpoint: <https://github.com/imas/imasparql>
+im@sparql: <https://github.com/imas/imasparql>
 
 ## License
 
