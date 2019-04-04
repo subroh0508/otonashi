@@ -66,6 +66,7 @@ class TtlCodeGenerator(
 
     private fun buildExtFuncCode(lineMap: Map<RdfType, MutableList<String>>, iriPrefix: String) = buildString {
         append("package $packageName\n")
+        append("\n")
         append("import net.subroh0508.otonashi.triples.TripleFacade\n")
         append("import net.subroh0508.otonashi.triples.extensions.get\n")
         append("import net.subroh0508.otonashi.triples.vocabulary.IriVocabulary\n")
