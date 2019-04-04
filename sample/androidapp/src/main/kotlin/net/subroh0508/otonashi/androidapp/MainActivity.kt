@@ -14,17 +14,19 @@ import net.subroh0508.otonashi.core.operators.functions.replace
 import net.subroh0508.otonashi.core.operators.functions.str
 import net.subroh0508.otonashi.core.vocabulary.common.Rdf
 import net.subroh0508.otonashi.core.vocabulary.common.rdf
-import net.subroh0508.otonashi.vocabraries.schema.Schema
-import net.subroh0508.otonashi.vocabraries.schema.schema
 import net.subroh0508.otonashi.vocabularies.imasparql.*
+import net.subroh0508.otonashi.vocabularies.schema.SchemaClass
+import net.subroh0508.otonashi.vocabularies.schema.SchemaPrefix
+import net.subroh0508.otonashi.vocabularies.schema.SchemaProperty
+import net.subroh0508.otonashi.vocabularies.schema.schemaP
 import java.net.URLDecoder
 
 class MainActivity : AppCompatActivity() {
     private val client: SparqlQuery by lazy {
         SparqlQuery.Builder {
             endpoint("https://sparql.crssnky.xyz/spql/imas/query")
-            prefixes(Rdf.Prefix, Schema.Prefix, ImasparqlPrefix.IMAS)
-            install(Rdf, Schema, ImasparqlClass, ImasparqlProperty)
+            prefixes(Rdf.Prefix, SchemaPrefix.SCHEMA, ImasparqlPrefix.IMAS)
+            install(Rdf, SchemaClass, SchemaProperty, ImasparqlClass, ImasparqlProperty)
         }
     }
 
@@ -43,16 +45,16 @@ class MainActivity : AppCompatActivity() {
         val query = client.where {
             v("s") be {
                 rdf.type to imasC.idol and
-                schema.name to v("name") and
+                schemaP.name to v("name") and
                 imasP.title to v("title") and
-                schema.memberOf to v("unit_url")
+                schemaP.memberOf to v("unit_url")
             }
             filter {
                 contains(v("title"), "CinderellaGirls")
             }
             v("unit_url") be {
                 rdf.type to imasC.unit and
-                schema.name to v("unit_name")
+                schemaP.name to v("unit_name")
             }
         }.select {
             replace(
