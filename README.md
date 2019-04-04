@@ -56,6 +56,7 @@ Use by Otonashi
 
 ```
 // initialize client
+// note: requires schema, foaf and imasparql vocabularies
 val kotori: Kotori by lazy {
     Otonashi.Study {
         destination("https://sparql.crssnky.xyz/spql/imas/query")
