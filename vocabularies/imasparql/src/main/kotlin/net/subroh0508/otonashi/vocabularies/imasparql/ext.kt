@@ -13,3 +13,5 @@ val TripleFacade.imasC get() = iri.imasC
 
 val Set<IriVocabulary>.imasP get() = get(ImasparqlProperty::class)
 val TripleFacade.imasP get() = iri.imasP
+
+val imasparqlVocabularies = arrayOf(ImasparqlClass, ImasparqlProperty)

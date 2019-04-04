@@ -14,19 +14,23 @@ import net.subroh0508.otonashi.core.operators.functions.replace
 import net.subroh0508.otonashi.core.operators.functions.str
 import net.subroh0508.otonashi.core.vocabulary.common.Rdf
 import net.subroh0508.otonashi.core.vocabulary.common.rdf
-import net.subroh0508.otonashi.vocabularies.imasparql.*
-import net.subroh0508.otonashi.vocabularies.schema.SchemaClass
+import net.subroh0508.otonashi.vocabularies.foaf.FoafPrefix
+import net.subroh0508.otonashi.vocabularies.foaf.foafVocabularies
+import net.subroh0508.otonashi.vocabularies.imasparql.ImasparqlPrefix
+import net.subroh0508.otonashi.vocabularies.imasparql.imasC
+import net.subroh0508.otonashi.vocabularies.imasparql.imasP
+import net.subroh0508.otonashi.vocabularies.imasparql.imasparqlVocabularies
 import net.subroh0508.otonashi.vocabularies.schema.SchemaPrefix
-import net.subroh0508.otonashi.vocabularies.schema.SchemaProperty
 import net.subroh0508.otonashi.vocabularies.schema.schemaP
+import net.subroh0508.otonashi.vocabularies.schema.schemaVocabularies
 import java.net.URLDecoder
 
 class MainActivity : AppCompatActivity() {
     private val client: SparqlQuery by lazy {
         SparqlQuery.Builder {
             endpoint("https://sparql.crssnky.xyz/spql/imas/query")
-            prefixes(Rdf.Prefix, SchemaPrefix.SCHEMA, ImasparqlPrefix.IMAS)
-            install(Rdf, SchemaClass, SchemaProperty, ImasparqlClass, ImasparqlProperty)
+            prefixes(Rdf.Prefix, SchemaPrefix.SCHEMA, FoafPrefix.FOAF, ImasparqlPrefix.IMAS)
+            install(Rdf, *schemaVocabularies, *foafVocabularies, *imasparqlVocabularies)
         }
     }
 

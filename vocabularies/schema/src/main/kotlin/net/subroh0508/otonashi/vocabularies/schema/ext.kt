@@ -13,3 +13,5 @@ val TripleFacade.schemaC get() = iri.schemaC
 
 val Set<IriVocabulary>.schemaP get() = get(SchemaProperty::class)
 val TripleFacade.schemaP get() = iri.schemaP
+
+val schemaVocabularies = arrayOf(SchemaClass, SchemaProperty)
