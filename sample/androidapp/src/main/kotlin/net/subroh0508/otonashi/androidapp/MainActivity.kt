@@ -1,7 +1,6 @@
 package net.subroh0508.otonashi.androidapp
 
 import android.os.Bundle
-import android.text.TextUtils.replace
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -15,12 +14,10 @@ import net.subroh0508.otonashi.core.operators.functions.replace
 import net.subroh0508.otonashi.core.operators.functions.str
 import net.subroh0508.otonashi.core.vocabulary.common.Rdf
 import net.subroh0508.otonashi.core.vocabulary.common.rdf
-import net.subroh0508.otonashi.vocabraries.imasparql.*
 import net.subroh0508.otonashi.vocabraries.schema.Schema
 import net.subroh0508.otonashi.vocabraries.schema.schema
-
+import net.subroh0508.otonashi.vocabularies.imasparql.*
 import java.net.URLDecoder
-import java.util.Locale.filter
 
 class MainActivity : AppCompatActivity() {
     private val client: SparqlQuery by lazy {
