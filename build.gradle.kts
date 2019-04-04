@@ -1,7 +1,5 @@
 
 import com.jfrog.bintray.gradle.BintrayExtension
-import java.text.SimpleDateFormat
-import java.util.*
 
 plugins {
     id(Dep.GradlePlugin.jfrog) version Versions.bintray
@@ -79,7 +77,7 @@ subprojects {
                 issueTrackerUrl = "${Packages.githubUrl}/issues"
                 publicDownloadNumbers = true
                 version.name = versionName
-                version.released = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(Date())
+                //version.released = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.JAPAN).format(Date())
             })
         }
     }

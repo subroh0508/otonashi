@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "net.subroh0508.otonashi"
-version = "1.0-SNAPSHOT"
+version = Packages.versionName
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8

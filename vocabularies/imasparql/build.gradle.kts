@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "net.subroh0508.otonashi.vocabularies"
-version = "1.0-SNAPSHOT"
+version = Packages.Vocabularies.imasparqlVersion
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8

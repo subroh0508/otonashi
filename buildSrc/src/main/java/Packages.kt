@@ -6,16 +6,16 @@ object Packages {
 
     const val applicationId = "net.subroh0508.otonashi.sampleapp"
     const val versionCode = 1
-    const val versionName = "0.1.0"
+    const val versionName = "0.1.1"
 
     const val groupId = "net.subroh0508.otonashi"
     const val siteUrl = "https://github.com/subroh0508/otonashi"
     const val githubUrl = "https://github.com/subroh0508/otonashi"
 
     object Vocabularies {
-        const val generatorVersion = "0.0.1"
-        const val schemaVersion = "0.0.1"
-        const val foafVersion = "0.0.1"
-        const val imasparqlVersion = "0.0.1"
+        const val generatorVersion = "0.1.0"
+        const val schemaVersion = "1.0.0"
+        const val foafVersion = "1.0.0"
+        const val imasparqlVersion = "1.0.0"
     }
 }
