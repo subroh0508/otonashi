@@ -91,7 +91,7 @@ val query = kotori.where {
     + v("id") + v("name") + v("unit_names")
 }.groupBy { + v("s") + v("name") }
 
-print(query.toString()) // => SELECT (replace(...
+print(query.toString()) // => "SELECT (replace(..."
 ```
 
 ## Special Thanks
