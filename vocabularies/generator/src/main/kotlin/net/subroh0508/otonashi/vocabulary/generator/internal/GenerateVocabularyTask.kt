@@ -12,22 +12,32 @@ open class GenerateVocabularyTask : DefaultTask() {
             findByName(OtonashiVocabularyGeneratorPlugin.GENERATOR_PLUGIN_NAME) as GenerateVocabularyExtension
         }
 
-        val endpoint = extension.endpoint ?: throw IllegalArgumentException("Requires endpoint")
+        val parentDir = parentDir(extension.outputPath)
+        val namePrefix = (extension.classPrefix ?: project.name).capitalize()
         val packageName = extension.packageName ?: "${project.group}.${project.name}"
-        val classNamePrefix = (extension.classPrefix ?: project.name).capitalize()
+
+        val prefixes = extension.prefixes ?: emptyList()
+
+        val enumFile = if (prefixes.isEmpty())
+                           null
+                       else
+                           IriEnumGenerator(parentDir, namePrefix, packageName).execute(prefixes)
+
+        val endpoint = extension.endpoint ?: throw IllegalArgumentException("Requires endpoint")
 
         val rawText = HttpClient.fetch(endpoint)
-        val parentDir = parentDir(extension.outputPath)
 
-        val files = when (EndpointType.fromEndpoint(endpoint)) {
-            EndpointType.TTL -> TtlCodeGenerator(parentDir, classNamePrefix, packageName).execute(rawText)
+        val codeFiles = when (EndpointType.fromEndpoint(endpoint)) {
+            EndpointType.TTL -> TtlCodeGenerator(parentDir, namePrefix, packageName).execute(rawText)
             EndpointType.RDF -> listOf()
         }
 
-        println("Generate [${files.map(File::name).joinToString(", ")}] at ${parentDir.path}!")
+        val outputs = listOfNotNull(*codeFiles.toTypedArray(), enumFile)
+
+        println("Generate [${outputs.map(File::name).joinToString(", ")}] at ${parentDir.path}!")
     }
 
-    private fun parentDir(path: String?) = File("${project.path}/${path ?: DEFAULT_OUTPUT_DIR}").also {
+    private fun parentDir(path: String?) = File("${project.projectDir.absolutePath}/${path ?: DEFAULT_OUTPUT_DIR}").also {
         if (it.exists()) {
             it.delete()
         }
