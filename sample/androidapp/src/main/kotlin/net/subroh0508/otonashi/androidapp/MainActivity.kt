@@ -8,12 +8,12 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import net.subroh0508.otonashi.R
-import net.subroh0508.otonashi.core.SparqlQuery
+import net.subroh0508.otonashi.core.Kotori
+import net.subroh0508.otonashi.core.Otonashi
 import net.subroh0508.otonashi.core.operators.functions.contains
 import net.subroh0508.otonashi.core.operators.functions.replace
 import net.subroh0508.otonashi.core.operators.functions.str
-import net.subroh0508.otonashi.core.vocabulary.common.Rdf
-import net.subroh0508.otonashi.core.vocabulary.common.rdf
+import net.subroh0508.otonashi.core.vocabulary.common.rdfP
 import net.subroh0508.otonashi.vocabularies.foaf.FoafPrefix
 import net.subroh0508.otonashi.vocabularies.foaf.foafVocabularies
 import net.subroh0508.otonashi.vocabularies.imasparql.ImasparqlPrefix
@@ -26,11 +26,11 @@ import net.subroh0508.otonashi.vocabularies.schema.schemaVocabularies
 import java.net.URLDecoder
 
 class MainActivity : AppCompatActivity() {
-    private val client: SparqlQuery by lazy {
-        SparqlQuery.Builder {
-            endpoint("https://sparql.crssnky.xyz/spql/imas/query")
-            prefixes(Rdf.Prefix, SchemaPrefix.SCHEMA, FoafPrefix.FOAF, ImasparqlPrefix.IMAS)
-            install(Rdf, *schemaVocabularies, *foafVocabularies, *imasparqlVocabularies)
+    private val kotori: Kotori by lazy {
+        Otonashi.Study {
+            destination("https://sparql.crssnky.xyz/spql/imas/query")
+            reminds(SchemaPrefix.SCHEMA, FoafPrefix.FOAF, ImasparqlPrefix.IMAS)
+            buildsUp(*schemaVocabularies, *foafVocabularies, *imasparqlVocabularies)
         }
     }
 
@@ -46,9 +46,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun sendRequest() {
-        val query = client.where {
+        val query = kotori.where {
             v("s") be {
-                rdf.type to imasC.idol and
+                rdfP.type to imasC.idol and
                 schemaP.name to v("name") and
                 imasP.title to v("title") and
                 schemaP.memberOf to v("unit_url")
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 contains(v("title"), "CinderellaGirls")
             }
             v("unit_url") be {
-                rdf.type to imasC.unit and
+                rdfP.type to imasC.unit and
                 schemaP.name to v("unit_name")
             }
         }.select {

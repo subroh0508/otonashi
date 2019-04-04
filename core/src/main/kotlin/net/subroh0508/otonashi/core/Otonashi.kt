@@ -7,12 +7,12 @@ import net.subroh0508.otonashi.triples.Prefix
 import net.subroh0508.otonashi.triples.vocabulary.IriVocabulary
 
 abstract class Otonashi {
-    abstract class Study {
+    object Study {
         private lateinit var endpoint: String
         private var prefixes: List<Prefix> = emptyList()
         private var vocabulary: Vocabulary = Vocabulary()
 
-        fun invoke(scope: Otonashi.Study.() -> Unit): SparqlQuery {
+        operator fun invoke(scope: Otonashi.Study.() -> Unit): Kotori {
             val builder = apply(scope)
 
             return SparqlQuery(builder.endpoint, builder.prefixes, builder.vocabulary)
@@ -26,8 +26,10 @@ abstract class Otonashi {
             this.prefixes = listOf(*CommonPrefix.values(), *prefixes)
         }
 
-        fun install(vararg vocabularies: IriVocabulary) {
+        fun buildsUp(vararg vocabularies: IriVocabulary) {
             this.vocabulary = Vocabulary(*commonVocabularies, *vocabularies)
         }
     }
 }
+
+typealias Kotori = SparqlQuery
