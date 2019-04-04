@@ -23,16 +23,14 @@ import net.subroh0508.otonashi.vocabularies.imasparql.imasparqlVocabularies
 import net.subroh0508.otonashi.vocabularies.schema.SchemaPrefix
 import net.subroh0508.otonashi.vocabularies.schema.schemaP
 import net.subroh0508.otonashi.vocabularies.schema.schemaVocabularies
-import java.net.URLDecoder
 
 class MainActivity : AppCompatActivity() {
-    private val kotori: Kotori by lazy {
-        Otonashi.Study {
+    private val kotori: Kotori
+        get() = Otonashi.Study {
             destination("https://sparql.crssnky.xyz/spql/imas/query")
             reminds(SchemaPrefix.SCHEMA, FoafPrefix.FOAF, ImasparqlPrefix.IMAS)
             buildsUp(*schemaVocabularies, *foafVocabularies, *imasparqlVocabularies)
         }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,7 +69,7 @@ class MainActivity : AppCompatActivity() {
             + v("id") + v("name") + v("unit_names")
         }.groupBy { + v("s") + v("name") }.limit(100)
 
-        Log.d("query", URLDecoder.decode(query.toString(), "UTF-8"))
+        Log.d("query", query.urlDecode())
         GlobalScope.launch {
             val result = KtorClient.get(query.toString(), ImasResult::class)
             result.forEach {

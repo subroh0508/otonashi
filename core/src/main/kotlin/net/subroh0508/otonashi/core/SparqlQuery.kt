@@ -13,6 +13,7 @@ import net.subroh0508.otonashi.core.vocabulary.Vocabulary
 import net.subroh0508.otonashi.triples.Prefix
 import net.subroh0508.otonashi.triples.Var
 import net.subroh0508.otonashi.triples.vocabulary.IriVocabulary
+import java.net.URLDecoder
 import java.net.URLEncoder
 
 class SparqlQuery internal constructor(
@@ -98,6 +99,8 @@ class SparqlQuery internal constructor(
     }
 
     override fun toString() = "$endpoint?force-accept=text%2Fplain&query=${buildQuery()}"
+
+    fun urlDecode(): String = URLDecoder.decode(toString(), "UTF-8")
 
     private fun buildQuery(): String {
         val query = buildString {
