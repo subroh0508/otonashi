@@ -12,5 +12,5 @@ object Foaf : IriVocabulary(
         override fun toString() = "PREFIX $prefix: $iri"
     }
 
-    val age by store
+    val age by iriStore
 }

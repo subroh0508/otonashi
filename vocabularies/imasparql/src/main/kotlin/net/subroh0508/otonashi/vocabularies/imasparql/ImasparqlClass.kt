@@ -12,18 +12,18 @@ object ImasparqlClass : IriVocabulary(
     "CallName", "Character", "CinderellaRankingResult", "Clothes", "Communication", "Event", "Facility", "Idol", "Introduction", "Live",
     "ScriptText", "SetlistNumber", "Staff", "Unit"
 ) {
-    val callName by store
-    val character by store
-    val cinderellaRankingResult by store
-    val clothes by store
-    val communication by store
-    val event by store
-    val facility by store
-    val idol by store
-    val introduction by store
-    val live by store
-    val scriptText by store
-    val setlistNumber by store
-    val staff by store
-    val unit by store
+    val callName by iriStore
+    val character by iriStore
+    val cinderellaRankingResult by iriStore
+    val clothes by iriStore
+    val communication by iriStore
+    val event by iriStore
+    val facility by iriStore
+    val idol by iriStore
+    val introduction by iriStore
+    val live by iriStore
+    val scriptText by iriStore
+    val setlistNumber by iriStore
+    val staff by iriStore
+    val unit by iriStore
 }

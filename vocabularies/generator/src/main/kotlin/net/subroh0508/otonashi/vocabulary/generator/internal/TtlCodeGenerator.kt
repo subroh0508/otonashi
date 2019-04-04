@@ -57,7 +57,7 @@ class TtlCodeGenerator(
         append("\n")
         append(") {\n")
         attributes.forEach { attr ->
-            append("    val ${attr.decapitalize()} by store\n")
+            append("    val ${attr.decapitalize()} by iriStore\n")
         }
         append("}\n")
     }

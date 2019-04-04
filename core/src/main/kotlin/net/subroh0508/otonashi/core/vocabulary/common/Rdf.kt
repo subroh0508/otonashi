@@ -12,5 +12,5 @@ object Rdf : IriVocabulary(
         override fun toString() = "PREFIX $prefix: $iri"
     }
 
-    val type by store
+    val type by iriStore
 }
