@@ -7,7 +7,7 @@ import net.subroh0508.otonashi.triples.vocabulary.IriVocabulary
  *
  */
 
-object RdfProperty : IriVocabulary(
+object RDFProperty : IriVocabulary(
     "rdf",
     "first", "object", "predicate", "rest", "subject", "type", "value"
 ) {

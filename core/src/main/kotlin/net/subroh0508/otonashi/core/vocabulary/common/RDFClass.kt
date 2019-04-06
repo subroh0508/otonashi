@@ -7,7 +7,7 @@ import net.subroh0508.otonashi.triples.vocabulary.IriVocabulary
  *
  */
 
-object RdfClass : IriVocabulary(
+object RDFClass : IriVocabulary(
     "rdf",
     "Alt", "Bag", "List", "Property", "Seq", "Statement"
 ) {

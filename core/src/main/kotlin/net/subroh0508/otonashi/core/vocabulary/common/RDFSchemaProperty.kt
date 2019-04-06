@@ -7,7 +7,7 @@ import net.subroh0508.otonashi.triples.vocabulary.IriVocabulary
  *
  */
 
-object RdfsProperty : IriVocabulary(
+object RDFSchemaProperty : IriVocabulary(
     "rdfs",
     "comment", "domain", "isDefinedBy", "label", "member", "range", "seeAlso", "subClassOf", "subPropertyOf"
 ) {

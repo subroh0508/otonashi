@@ -7,7 +7,7 @@ import net.subroh0508.otonashi.triples.vocabulary.IriVocabulary
  *
  */
 
-object RdfsClass : IriVocabulary(
+object RDFSchemaClass : IriVocabulary(
     "rdfs",
     "Class", "Container", "ContainerMembershipProperty", "Datatype", "Literal", "Resource"
 ) {

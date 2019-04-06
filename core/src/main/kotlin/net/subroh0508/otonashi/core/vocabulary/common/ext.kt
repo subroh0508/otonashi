@@ -10,16 +10,16 @@ import net.subroh0508.otonashi.triples.vocabulary.IriVocabulary
  */
 
 
-val Set<IriVocabulary>.rdfC get() = get(RdfClass::class)
+val Set<IriVocabulary>.rdfC get() = get(RDFClass::class)
 val TripleFacade.rdfC get() = iri.rdfC
 
-val Set<IriVocabulary>.rdfP get() = get(RdfProperty::class)
+val Set<IriVocabulary>.rdfP get() = get(RDFProperty::class)
 val TripleFacade.rdfP get() = iri.rdfP
 
-val Set<IriVocabulary>.rdfsC get() = get(RdfsClass::class)
+val Set<IriVocabulary>.rdfsC get() = get(RDFSchemaClass::class)
 val TripleFacade.rdfsC get() = iri.rdfsC
 
-val Set<IriVocabulary>.rdfsP get() = get(RdfsProperty::class)
+val Set<IriVocabulary>.rdfsP get() = get(RDFSchemaProperty::class)
 val TripleFacade.rdfsP get() = iri.rdfsP
 
-val commonVocabularies = arrayOf(RdfClass, RdfProperty, RdfsClass, RdfProperty)
+val commonVocabularies = arrayOf(RDFClass, RDFProperty, RDFSchemaClass, RDFProperty)
