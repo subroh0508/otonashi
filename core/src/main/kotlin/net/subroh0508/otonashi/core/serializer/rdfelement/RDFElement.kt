@@ -6,17 +6,17 @@ import kotlinx.serialization.Transient
 import net.subroh0508.otonashi.core.serializer.type.LiteralWithDataTypeCastDelegate
 import java.net.URI
 
-internal sealed class RDFElement {
+sealed class RDFElement {
     companion object {
-        const val TYPE_URI = "uri"
-        const val TYPE_LITERAL = "literal"
-        const val TYPE_BNODE = "bnode"
+        internal const val TYPE_URI = "uri"
+        internal const val TYPE_LITERAL = "literal"
+        internal const val TYPE_BNODE = "bnode"
 
-        const val LANGUAGE_TAG = "xml:lang"
-        const val DATATYPE_IRI = "datatype"
+        internal const val LANGUAGE_TAG = "xml:lang"
+        internal const val DATATYPE_IRI = "datatype"
     }
 
-    abstract val castedValue: Any
+    internal abstract val castedValue: Any
 
     @Serializable
     data class IRI(

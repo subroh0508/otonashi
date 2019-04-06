@@ -37,7 +37,7 @@ object KtorClient {
             return@async Json.nonstrict.parse(
                 SparqlResponse.serializer(type.serializer()),
                 response
-            ).results.bindings
+            ).results()
         }.await()
     }
 }

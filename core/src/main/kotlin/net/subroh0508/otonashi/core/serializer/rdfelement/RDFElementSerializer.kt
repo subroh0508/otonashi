@@ -1,37 +1,46 @@
 package net.subroh0508.otonashi.core.serializer.rdfelement
 
-import kotlinx.serialization.Decoder
-import kotlinx.serialization.ImplicitReflectionSerializer
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.SerializationException
+import kotlinx.serialization.*
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonInput
 import kotlinx.serialization.json.JsonObject
+import net.subroh0508.otonashi.core.serializer.SparqlResponse
 import kotlin.reflect.KClass
 
-class RDFElementSerializer<T: Any>(
-    private val dataSerializer: KSerializer<T>
-) : KSerializer<T> by dataSerializer {
-    @Suppress("UNCHECKED_CAST")
-    private val kClass: KClass<T> = Class.forName(dataSerializer.descriptor.name).kotlin as KClass<T>
+internal class RDFElementSerializer<T: Any>(
+    dataSerializer: KSerializer<T>
+) : KSerializer<SparqlResponse.Binding<T>> {
+    override val descriptor: SerialDescriptor = dataSerializer.descriptor
 
-    override fun deserialize(decoder: Decoder): T {
+    @Suppress("UNCHECKED_CAST")
+    private val kClass: KClass<T> = Class.forName(descriptor.name).kotlin as KClass<T>
+
+    override fun deserialize(decoder: Decoder): SparqlResponse.Binding<T> {
         val input = decoder as? JsonInput ?: throw SerializationException("This class can be loaded only by Json")
         val resultElement = input.decodeJson()
 
-        val elements = (0 until dataSerializer.descriptor.elementsCount).map { index ->
+        val elements = (0 until descriptor.elementsCount).map { index ->
             if (resultElement.isNull) {
                 return@map null
             }
 
-            val elementName = dataSerializer.descriptor.getElementName(index)
+            val elementName = descriptor.getElementName(index)
             decodeRDFElement(input, (resultElement as JsonObject)[elementName])
         }
 
-        return kClass.constructors.first().call(*elements.map { it?.castedValue }.toTypedArray())
+        val elementsMap = elements.mapIndexed { index, rdfElement ->
+            descriptor.getElementName(index) to rdfElement
+        }.toMap()
+
+        return SparqlResponse.Binding(
+            elementsMap,
+            kClass.constructors.first().call(*elements.map { it?.castedValue }.toTypedArray())
+        )
         //return kClass.primaryConstructor?.call(*elements.map { it?.castedValue }.toTypedArray())
         //    ?: throw IllegalStateException("${kClass.simpleName} requires the primary constructor!")
     }
+
+    override fun serialize(encoder: Encoder, obj: SparqlResponse.Binding<T>) = Unit
 
     private fun decodeRDFElement(input: JsonInput, element: JsonElement): RDFElement? {
         val jsonObject = element as JsonObject

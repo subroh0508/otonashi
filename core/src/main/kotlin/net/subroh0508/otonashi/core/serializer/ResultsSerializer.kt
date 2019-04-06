@@ -18,14 +18,14 @@ internal class ResultsSerializer<T: Any>(
     override fun deserialize(decoder: Decoder): SparqlResponse.Results<T> {
         val inp = decoder.beginStructure(descriptor)
 
-        var bindings: List<T> = listOf()
+        var bindings: List<SparqlResponse.Binding<T>> = listOf()
         loop@ while (true) {
             when (val i = inp.decodeElementIndex(descriptor)) {
                 0 -> bindings = inp.decodeSerializableElement(
-                    descriptor,
-                    i,
-                    ArrayListSerializer(RDFElementSerializer(dataSerializer))
-                )
+                        descriptor,
+                        i,
+                        ArrayListSerializer(RDFElementSerializer(dataSerializer))
+                    )
                 CompositeDecoder.READ_DONE -> break@loop
                 else -> throw SerializationException("Unknown index $i")
             }
