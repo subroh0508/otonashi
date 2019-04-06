@@ -1,11 +1,14 @@
-package net.subroh0508.otonashi.androidapp
+package net.subroh0508.otonashi.core.serializer
 
 import kotlinx.serialization.*
 import kotlinx.serialization.internal.ArrayListSerializer
 import kotlinx.serialization.internal.SerialClassDescImpl
+import net.subroh0508.otonashi.core.serializer.rdfelement.RDFElementSerializer
 
 @Serializer(forClass = SparqlResponse.Results::class)
-class ResultsSerializer<T: Any>(private val dataSerializer: KSerializer<T>) : KSerializer<SparqlResponse.Results<T>> {
+internal class ResultsSerializer<T: Any>(
+    private val dataSerializer: KSerializer<T>
+) : KSerializer<SparqlResponse.Results<T>> {
     override val descriptor: SerialDescriptor = object : SerialClassDescImpl("SparqlResponse.Results") {
         init {
             addElement("bindings")
@@ -18,7 +21,11 @@ class ResultsSerializer<T: Any>(private val dataSerializer: KSerializer<T>) : KS
         var bindings: List<T> = listOf()
         loop@ while (true) {
             when (val i = inp.decodeElementIndex(descriptor)) {
-                0 -> bindings = inp.decodeSerializableElement(descriptor, i, ArrayListSerializer(dataSerializer))
+                0 -> bindings = inp.decodeSerializableElement(
+                    descriptor,
+                    i,
+                    ArrayListSerializer(RDFElementSerializer(dataSerializer))
+                )
                 CompositeDecoder.READ_DONE -> break@loop
                 else -> throw SerializationException("Unknown index $i")
             }

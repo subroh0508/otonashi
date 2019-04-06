@@ -5,8 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ImasResult(
-    val id: ValueSet,
-    val name: ValueSet,
+    val id: String,
+    val name: String,
     @SerialName("unit_names")
-    val unitNames: ValueSet
+    val unitNames: String
 )

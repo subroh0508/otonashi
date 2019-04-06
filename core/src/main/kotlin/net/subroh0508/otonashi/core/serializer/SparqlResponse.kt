@@ -1,9 +1,9 @@
-package net.subroh0508.otonashi.androidapp
+package net.subroh0508.otonashi.core.serializer
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SparqlResponse<T: Any>(
+data class SparqlResponse<T>(
     val head: Head,
     @Serializable(with = ResultsSerializer::class)
     val results: Results<T>

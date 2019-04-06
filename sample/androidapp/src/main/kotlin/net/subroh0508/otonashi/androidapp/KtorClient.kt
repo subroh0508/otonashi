@@ -13,6 +13,7 @@ import kotlinx.coroutines.async
 import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
+import net.subroh0508.otonashi.core.serializer.SparqlResponse
 import kotlin.reflect.KClass
 
 object KtorClient {

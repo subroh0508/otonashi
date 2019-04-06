@@ -2,7 +2,7 @@
 object Versions {
     const val androidGradlePlugin = "3.3.2"
     const val kotlin = "1.3.21"
-    const val kotlinxSerialization = "0.11.0"
+    const val kotlinxSerialization = "0.10.0"
     const val bintray = "1.8.4"
     const val shadow = "5.0.0"
 
