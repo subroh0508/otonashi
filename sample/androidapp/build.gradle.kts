@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -26,6 +28,11 @@ android {
     }
     packagingOptions {
         exclude("META-INF/*")
+    }
+    (kotlinOptions as KotlinJvmOptions).apply {
+        freeCompilerArgs = listOf(
+            "-Xuse-experimental=kotlin.Experimental"
+        )
     }
 }
 

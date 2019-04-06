@@ -71,8 +71,8 @@ class MainActivity : AppCompatActivity() {
 
         Log.d("query", query.urlDecode())
         GlobalScope.launch {
-            val result = KtorClient.get(query.toString(), ImasResult::class)
-            result.forEach {
+            val results = KtorClient.get(query.toString(), ImasResult::class)
+            results.forEach {
                 Log.d("result", Json.stringify(ImasResult.serializer(), it))
             }
         }
