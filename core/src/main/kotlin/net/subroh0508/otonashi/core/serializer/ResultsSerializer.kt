@@ -34,7 +34,5 @@ internal class ResultsSerializer<T: Any>(
         return SparqlResponse.Results(bindings)
     }
 
-    override fun serialize(encoder: Encoder, obj: SparqlResponse.Results<T>) {
-
-    }
+    override fun serialize(encoder: Encoder, obj: SparqlResponse.Results<T>) = Unit
 }
