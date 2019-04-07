@@ -1,4 +1,4 @@
-package net.subroh0508.otonashi.androidapp
+package net.subroh0508.otonashi.androidapp.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

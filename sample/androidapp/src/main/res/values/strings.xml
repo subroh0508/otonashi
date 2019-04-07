@@ -10,7 +10,13 @@
     <string name="title_others">OTHERS</string>
     <string name="title_staff">STAFF</string>
 
+    <string name="search">検索</string>
+    <string name="cancel">キャンセル</string>
+
     <string name="idol_name">アイドル名</string>
 
     <string name="send_request">リクエスト送信</string>
+
+    <string name="search_condition">検索条件</string>
+    <string name="search_result_summary">件数: %d件</string>
 </resources>

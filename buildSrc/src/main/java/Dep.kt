@@ -18,6 +18,17 @@ object Dep {
         const val appCompat = "androidx.appcompat:appcompat:${Versions.AndroidX.appCompat}"
         const val ktx = "androidx.core:core-ktx:${Versions.AndroidX.ktx}"
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.AndroidX.constraintLayout}"
+        const val viewPager2 = "androidx.viewpager2:viewpager2:${Versions.AndroidX.viewPager2}"
+        const val fragment = "androidx.fragment:fragment:${Versions.AndroidX.fragment}"
+        const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.AndroidX.fragmentKtx}"
+        const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.AndroidX.recyclerView}"
+
+        object Lifecycle {
+            const val runtime = "androidx.lifecycle:lifecycle-runtime:${Versions.AndroidX.lifecycle}"
+            const val extensions = "androidx.lifecycle:lifecycle-extensions:${Versions.AndroidX.lifecycle}"
+            const val viewModel = "androidx.lifecycle:lifecycle-viewmodel:${Versions.AndroidX.lifecycle}"
+            const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.AndroidX.lifecycle}"
+        }
 
         object Test {
             const val runner = "androidx.test:runner:${Versions.AndroidX.Test.runner}"

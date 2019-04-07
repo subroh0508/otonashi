@@ -1,3 +1,4 @@
+
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
 plugins {
@@ -46,6 +47,14 @@ dependencies {
     implementation(Dep.AndroidX.appCompat)
     implementation(Dep.AndroidX.ktx)
     implementation(Dep.AndroidX.constraintLayout)
+    implementation(Dep.AndroidX.viewPager2)
+    implementation(Dep.AndroidX.fragment)
+    implementation(Dep.AndroidX.fragmentKtx)
+    implementation(Dep.AndroidX.recyclerView)
+    implementation(Dep.AndroidX.Lifecycle.runtime)
+    implementation(Dep.AndroidX.Lifecycle.extensions)
+    implementation(Dep.AndroidX.Lifecycle.viewModel)
+    implementation(Dep.AndroidX.Lifecycle.viewModelKtx)
     implementation(Dep.material)
     implementation(Dep.Coroutines.core)
     implementation(Dep.Coroutines.android)
