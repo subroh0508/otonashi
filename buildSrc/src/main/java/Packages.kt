@@ -1,7 +1,7 @@
 @Suppress("unused")
 object Packages {
     const val compileSdkVersion = 28
-    const val minSdkVersion = 21
+    const val minSdkVersion = 26
     const val targetSdkVersion = 28
 
     const val applicationId = "net.subroh0508.otonashi.sampleapp"

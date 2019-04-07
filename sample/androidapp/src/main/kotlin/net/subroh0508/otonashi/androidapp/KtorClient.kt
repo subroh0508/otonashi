@@ -1,5 +1,6 @@
 package net.subroh0508.otonashi.androidapp
 
+import android.util.Log
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.features.json.JsonFeature
@@ -33,8 +34,9 @@ object KtorClient {
                 accept(ContentType("application", "sparql-results+json"))
             }
 
+            Log.d("rawResponse", response)
             @UseExperimental(ImplicitReflectionSerializer::class)
-            return@async Json.nonstrict.parse(
+            return@async Json.unquoted.parse(
                 SparqlResponse.serializer(type.serializer()),
                 response
             ).results()

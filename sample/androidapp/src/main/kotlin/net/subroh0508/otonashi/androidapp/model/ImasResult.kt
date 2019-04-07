@@ -7,6 +7,16 @@ import kotlinx.serialization.Serializable
 data class ImasResult(
     val id: String,
     val name: String,
-    @SerialName("unit_names")
-    val unitNames: String
+    @SerialName("age_str")
+    val age: String,
+    @SerialName("color_hex")
+    val color: String?,
+    @SerialName("blood_type")
+    val bloodType: String,
+    val handedness: String,
+    @SerialName("birth_place")
+    val birthPlace: String,
+    @SerialName("three_size")
+    val threeSize: String,
+    val description: String?
 )

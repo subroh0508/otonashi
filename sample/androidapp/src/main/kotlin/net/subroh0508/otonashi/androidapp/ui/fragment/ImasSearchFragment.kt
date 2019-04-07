@@ -1,17 +1,22 @@
 package net.subroh0508.otonashi.androidapp.ui.fragment
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_search.*
+import kotlinx.android.synthetic.main.listitem_imas_search_result.view.*
+import kotlinx.coroutines.launch
 import net.subroh0508.otonashi.R
+import net.subroh0508.otonashi.androidapp.KtorClient
 import net.subroh0508.otonashi.androidapp.model.ImasResult
 import net.subroh0508.otonashi.androidapp.ui.view.FooterViewHolder
 import net.subroh0508.otonashi.androidapp.ui.viewmodel.EventViewModel
@@ -44,7 +49,18 @@ class ImasSearchFragment : SearchFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        Log.d("resultCode", imasViewModel.idolName)
+        if (resultCode == AppCompatActivity.RESULT_CANCELED) return
+
+        launch {
+            val query = imasViewModel.buildQuery(requireContext())
+            Log.d("query", query.urlDecode())
+
+            val response = KtorClient.get(query.toString(), ImasResult::class)
+
+            adapter.onFetchedResults(response)
+        }
+
+        //Log.d("resultCode", imasViewModel.idolName)
     }
 
     class ResultAdapter(
@@ -82,7 +98,19 @@ class ImasSearchFragment : SearchFragment() {
         }
 
         fun bindItem(item: ImasResult) {
+            with (itemView) {
+                idolId.text = item.id
+                idolName.text = item.name
 
+                val handedness = when (item.handedness) {
+                    "right" -> "右"
+                    "left" -> "左"
+                    else -> "両"
+                }
+                profile.text = "${item.age}歳 / ${item.birthPlace} / ${item.bloodType}型 / $handedness / ${item.threeSize}"
+                color.setBackgroundColor(item.color?.let { Color.parseColor(it) } ?: Color.LTGRAY)
+                description.text = item.description
+            }
         }
     }
 }
