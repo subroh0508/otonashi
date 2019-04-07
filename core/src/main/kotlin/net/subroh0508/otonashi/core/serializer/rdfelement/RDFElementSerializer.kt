@@ -25,7 +25,9 @@ internal class RDFElementSerializer<T: Any>(
             }
 
             val elementName = descriptor.getElementName(index)
-            decodeRDFElement(input, (resultElement as JsonObject)[elementName])
+            val element = (resultElement as JsonObject).getOrNull(elementName) ?: return@map null
+
+            decodeRDFElement(input, element)
         }
 
         val elementsMap = elements.mapIndexed { index, rdfElement ->
