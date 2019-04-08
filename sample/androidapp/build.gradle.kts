@@ -60,6 +60,7 @@ dependencies {
     implementation(Dep.Coroutines.android)
     implementation(Dep.Ktor.clientCommon)
     implementation(Dep.Ktor.clientAndroid)
+    implementation(Dep.Ktor.clientLogging)
     implementation(Dep.Ktor.jsonCommon)
     implementation(Dep.Ktor.jsonJvm)
     testImplementation(Dep.junit)

@@ -47,6 +47,7 @@ object Dep {
         const val clientCommon = "io.ktor:ktor-client-core:${Versions.ktor}"
         const val clientAndroid = "io.ktor:ktor-client-android:${Versions.ktor}"
         const val clientApache = "io.ktor:ktor-client-apache:${Versions.ktor}"
+        const val clientLogging = "io.ktor:ktor-client-logging:${Versions.ktor}"
         const val jsonCommon = "io.ktor:ktor-client-json:${Versions.ktor}"
         const val jsonJvm = "io.ktor:ktor-client-json-jvm:${Versions.ktor}"
     }

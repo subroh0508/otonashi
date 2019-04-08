@@ -58,7 +58,7 @@ class ImasViewModel : ViewModel() {
 
         + v("id") + v("name") +
                 v("age_str") + v("color_hex") + v("blood_type") + v("handedness") +
-                v("birth_place") + v("three_size") + v("description")
+                v("birth_date") + v("birth_place") + v("three_size") + v("description")
     }
 
     private fun init() = Otonashi.Study {

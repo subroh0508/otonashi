@@ -6,7 +6,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    android:padding="8dp">
+    android:layout_margin="8dp"
+    android:background="@color/white"
+    android:elevation="2dp">
 
     <View
         android:id="@+id/color"
@@ -54,7 +56,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="8dp"
         android:textSize="12sp"
-        tools:text="19歳 / 福島 / O型 / 右 / B73.0 W52.0 H81.0"
+        tools:text="1月16日生 / 19歳 / 福島 / O型 / 右 / B73.0 W52.0 H81.0"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintTop_toBottomOf="@id/idolId"
         app:layout_constraintBottom_toTopOf="@id/description"

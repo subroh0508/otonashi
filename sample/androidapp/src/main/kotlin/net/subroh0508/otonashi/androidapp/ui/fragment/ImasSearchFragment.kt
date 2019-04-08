@@ -21,6 +21,7 @@ import net.subroh0508.otonashi.androidapp.model.ImasResult
 import net.subroh0508.otonashi.androidapp.ui.view.FooterViewHolder
 import net.subroh0508.otonashi.androidapp.ui.viewmodel.EventViewModel
 import net.subroh0508.otonashi.androidapp.ui.viewmodel.ImasViewModel
+import java.time.format.DateTimeFormatter
 
 class ImasSearchFragment : SearchFragment() {
     private val eventViewModel: EventViewModel by lazy {
@@ -57,7 +58,7 @@ class ImasSearchFragment : SearchFragment() {
 
             val response = KtorClient.get(query.toString(), ImasResult::class)
 
-            adapter.onFetchedResults(response)
+            adapter.onFetchedResults(response.results())
         }
 
         //Log.d("resultCode", imasViewModel.idolName)
@@ -67,13 +68,20 @@ class ImasSearchFragment : SearchFragment() {
         private val inflater: LayoutInflater,
         private var results: List<ImasResult> = listOf()
     ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        init {
+            setHasStableIds(true)
+        }
+
         fun onFetchedResults(results: List<ImasResult>) {
             this.results = results
             notifyDataSetChanged()
         }
 
         override fun getItemCount() = results.size + 1
-        override fun getItemId(position: Int): Long = results[position].id.hashCode().toLong()
+        override fun getItemId(position: Int): Long = when (position == results.size) {
+            true -> 0L
+            false -> results[position].id.hashCode().toLong()
+        }
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
             FooterViewHolder.ITEM_TYPE -> FooterViewHolder(inflater.inflate(R.layout.listitem_footer, parent, false))
             else -> ResultViewHolder(inflater.inflate(R.layout.listitem_imas_search_result, parent, false))
@@ -102,12 +110,16 @@ class ImasSearchFragment : SearchFragment() {
                 idolId.text = item.id
                 idolName.text = item.name
 
+                val birthDate = item.birthDate.format(DateTimeFormatter.ofPattern("M月d日"))
                 val handedness = when (item.handedness) {
                     "right" -> "右"
                     "left" -> "左"
                     else -> "両"
                 }
-                profile.text = "${item.age}歳 / ${item.birthPlace} / ${item.bloodType}型 / $handedness / ${item.threeSize}"
+                profile.text = listOf(
+                    "${birthDate}生", "${item.age}歳", item.birthPlace,
+                    "${item.bloodType}型", handedness, item.threeSize
+                ).joinToString(" / ")
                 color.setBackgroundColor(item.color?.let { Color.parseColor(it) } ?: Color.LTGRAY)
                 description.text = item.description
             }

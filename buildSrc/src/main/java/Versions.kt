@@ -26,7 +26,7 @@ object Versions {
 
     const val material = "1.1.0-alpha05"
 
-    const val ktor = "1.1.3"
+    const val ktor = "1.2.0-alpha-2"
 
     const val okhttp3 = "3.14.0"
 
