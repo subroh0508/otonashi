@@ -2,6 +2,10 @@ package net.subroh0508.otonashi.androidapp
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
+import io.ktor.client.features.logging.DEFAULT
+import io.ktor.client.features.logging.LogLevel
+import io.ktor.client.features.logging.Logger
+import io.ktor.client.features.logging.Logging
 import io.ktor.client.request.accept
 import io.ktor.client.request.get
 import io.ktor.client.response.HttpResponse
@@ -14,7 +18,12 @@ import net.subroh0508.otonashi.core.serializer.SparqlResponse
 import kotlin.reflect.KClass
 
 object KtorClient {
-    val client = HttpClient(Android)
+    val client = HttpClient(Android) {
+        install(Logging) {
+            logger = Logger.DEFAULT
+            level = LogLevel.ALL
+        }
+    }
 
     suspend inline fun <reified T: Any> get(url: String, type: KClass<T>): SparqlResponse<T> {
         val response = client.get<HttpResponse>(url) {
@@ -22,7 +31,7 @@ object KtorClient {
         }
 
         @UseExperimental(ImplicitReflectionSerializer::class)
-        return Json.unquoted.parse(
+        return Json.nonstrict.parse(
             SparqlResponse.serializer(type.serializer()),
             response.readText(charset = Charsets.UTF_8)
         )

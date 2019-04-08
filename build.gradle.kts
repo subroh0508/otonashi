@@ -12,7 +12,6 @@ allprojects {
         jcenter()
         maven("https://dl.bintray.com/subroh0508/maven")
         maven("https://kotlin.bintray.com/kotlinx")
-        maven("https://kotlin.bintray.com/ktor")
     }
 }
 

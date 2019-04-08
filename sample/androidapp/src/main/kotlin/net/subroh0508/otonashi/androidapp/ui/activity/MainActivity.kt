@@ -12,23 +12,8 @@ import net.subroh0508.otonashi.R
 import net.subroh0508.otonashi.androidapp.ui.fragment.ImasSearchFragment
 import net.subroh0508.otonashi.androidapp.ui.view.TabLayoutMediator
 import net.subroh0508.otonashi.androidapp.ui.viewmodel.EventViewModel
-import net.subroh0508.otonashi.core.Kotori
-import net.subroh0508.otonashi.core.Otonashi
-import net.subroh0508.otonashi.vocabularies.foaf.FoafPrefix
-import net.subroh0508.otonashi.vocabularies.foaf.foafVocabularies
-import net.subroh0508.otonashi.vocabularies.imasparql.ImasparqlPrefix
-import net.subroh0508.otonashi.vocabularies.imasparql.imasparqlVocabularies
-import net.subroh0508.otonashi.vocabularies.schema.SchemaPrefix
-import net.subroh0508.otonashi.vocabularies.schema.schemaVocabularies
 
 class MainActivity : AppCompatActivity() {
-    private val kotori: Kotori
-        get() = Otonashi.Study {
-            destination("https://sparql.crssnky.xyz/spql/imas/query")
-            reminds(SchemaPrefix.SCHEMA, FoafPrefix.FOAF, ImasparqlPrefix.IMAS)
-            buildsUp(*schemaVocabularies, *foafVocabularies, *imasparqlVocabularies)
-        }
-
     private val viewModel: EventViewModel by lazy {
         ViewModelProviders.of(this)[EventViewModel::class.java]
     }
