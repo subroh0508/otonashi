@@ -10,7 +10,13 @@ import net.subroh0508.otonashi.triples.vocabulary.IriVocabulary
 internal class TripleFacadeDelegate(
     private val vocabulary: Vocabulary
 ) : TripleFacade {
-    override fun v(name: String) = vocabulary.v[name.camelize()] ?: Var(name).also { vocabulary.v[name.camelize()] = it }
+    override fun v(
+        name: String,
+        onlyName: Boolean
+    ) = if (onlyName)
+            Var(name)
+        else
+            vocabulary.v[name.camelize()] ?: Var(name).also { vocabulary.v[name.camelize()] = it }
 
     override val iri: Set<IriVocabulary> get() = vocabulary.iri
 

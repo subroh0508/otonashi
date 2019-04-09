@@ -41,11 +41,19 @@ class ImasViewModel : ViewModel() {
                 contains(v("name"), idolName)
         }
         optional {
-            v("s") be { schemaP.description to v("description") }
-        }
-        optional {
             v("s") be { imasP.color to v("color") }
         }
+        where {
+            v("s") be {
+                schemaP.memberOf to v("unit_url")
+            }
+            v("unit_url") be {
+                rdfP.type to imasC.unit and
+                schemaP.name to v("unit_name")
+            }
+        }.select {
+            + v("s") + (groupConcat(v("unit_name"), separator = ",") `as` v("unit_names"))
+        }.groupBy(v("s"))
     }.select {
         replace(
             str(v("s")),
@@ -58,7 +66,7 @@ class ImasViewModel : ViewModel() {
 
         + v("id") + v("name") +
                 v("age_str") + v("color_hex") + v("blood_type") + v("handedness") +
-                v("birth_date") + v("birth_place") + v("three_size") + v("description")
+                v("birth_date") + v("birth_place") + v("three_size") + v("unit_names", true)
     }
 
     private fun init() = Otonashi.Study {

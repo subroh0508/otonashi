@@ -23,5 +23,6 @@ data class ImasResult(
     val birthDate: MonthDay,
     @SerialName("three_size")
     val threeSize: String,
-    val description: String?
+    @SerialName("unit_names")
+    val unitNames: String
 )

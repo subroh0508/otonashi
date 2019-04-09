@@ -8,10 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.listitem_imas_search_result.view.*
 import kotlinx.coroutines.launch
@@ -60,8 +62,6 @@ class ImasSearchFragment : SearchFragment() {
 
             adapter.onFetchedResults(response.results())
         }
-
-        //Log.d("resultCode", imasViewModel.idolName)
     }
 
     class ResultAdapter(
@@ -121,7 +121,16 @@ class ImasSearchFragment : SearchFragment() {
                     "${item.bloodType}型", handedness, item.threeSize
                 ).joinToString(" / ")
                 color.setBackgroundColor(item.color?.let { Color.parseColor(it) } ?: Color.LTGRAY)
-                description.text = item.description
+
+                unitNames.removeAllViews()
+                item.unitNames.split(",").sorted().forEachIndexed { i, unitName ->
+                    val chip = Chip(context, null, R.style.Widget_MaterialComponents_Chip_Choice).apply {
+                        text = unitName
+                        setTextColor(ContextCompat.getColor(context, R.color.black))
+                    }
+
+                    unitNames.addView(chip)
+                }
             }
         }
     }

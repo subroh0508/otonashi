@@ -11,7 +11,7 @@ import net.subroh0508.otonashi.triples.TripleItem
 
 abstract class GraphPattern internal constructor(
     protected val prefix: String,
-    private val vocabulary: Vocabulary
+    internal val vocabulary: Vocabulary
 ) : Pattern, QueryItem, TripleFacade by TripleFacadeDelegate(vocabulary) {
     class Scope internal constructor(
         vocabulary: Vocabulary
@@ -24,6 +24,12 @@ abstract class GraphPattern internal constructor(
     infix fun TripleItem.be(pattern: TriplePattern.() -> Unit): GraphPattern {
         patterns.add(TriplePattern(this, vocabulary).apply(pattern))
         return this@GraphPattern
+    }
+
+    fun where(where: Where.() -> Unit): Where {
+        val subQuery = Where(vocabulary).apply(where)
+        patterns.add(subQuery)
+        return subQuery
     }
 
     fun optional(optional: Optional.() -> Unit): GraphPattern {
