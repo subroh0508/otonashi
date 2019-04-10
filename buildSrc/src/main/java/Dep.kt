@@ -50,9 +50,15 @@ object Dep {
         const val clientLogging = "io.ktor:ktor-client-logging-jvm:${Versions.ktor}"
         const val jsonCommon = "io.ktor:ktor-client-json:${Versions.ktor}"
         const val jsonJvm = "io.ktor:ktor-client-json-jvm:${Versions.ktor}"
+        const val serverCore = "io.ktor:ktor-server-core:${Versions.ktor}"
+        const val serverNetty = "io.ktor:ktor-server-netty:${Versions.ktor}"
+
+        const val serverTest = "io.ktor:ktor-server-tests:${Versions.ktor}"
     }
 
     const val okhttp3 = "com.squareup.okhttp3:okhttp:${Versions.okhttp3}"
+
+    const val logback = "ch.qos.logback:logback-classic:${Versions.logback}"
 
     const val junit = "junit:junit:${Versions.junit}"
 }

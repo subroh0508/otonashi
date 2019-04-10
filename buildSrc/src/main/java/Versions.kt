@@ -30,7 +30,7 @@ object Versions {
 
     const val okhttp3 = "3.14.0"
 
-    const val otonashi = "0.0.9"
+    const val logback = "1.2.1"
 
     const val junit = "4.12"
 }

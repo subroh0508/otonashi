@@ -6,7 +6,8 @@ include(":core",
         ":vocabularies:schema",
         ":vocabularies:foaf",
         ":vocabularies:imasparql",
-        ":sample:androidapp")
+        ":sample:androidapp",
+        ":sample:ktorreact")
 
 pluginManagement {
     repositories {
