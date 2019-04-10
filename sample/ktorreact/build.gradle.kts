@@ -34,11 +34,11 @@ dependencies {
     testCompile(Dep.Ktor.serverTest)
 }
 
-kotlin.sourceSets["main"].kotlin.srcDirs("src")
-kotlin.sourceSets["test"].kotlin.srcDirs("test")
+kotlin.sourceSets["main"].kotlin.srcDirs("backend/src")
+kotlin.sourceSets["test"].kotlin.srcDirs("backend/test")
 
-sourceSets["main"].resources.srcDirs("resources")
-sourceSets["test"].resources.srcDirs("testresources")
+sourceSets["main"].resources.srcDirs("backend/resources")
+sourceSets["test"].resources.srcDirs("backend/testresources")
 
 val compileKotlin by tasks.getting(KotlinCompile::class) {
     kotlinOptions {
