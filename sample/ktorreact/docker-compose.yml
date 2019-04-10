@@ -1,0 +1,10 @@
+version: "2"
+services:
+  node:
+    build: ./docker/node
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "3000:3000"
