@@ -25,7 +25,6 @@ object KtorClient {
         }
     }
 
-
     suspend inline fun <reified T: Any> get(url: String, type: KClass<T>): SparqlResponse<T> {
         val response = client.get<HttpResponse>(url) {
             accept(ContentType("application", "sparql-results+json"))
