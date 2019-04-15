@@ -1,8 +1,21 @@
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
-import logo from './logo.svg';
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import withStyles, { WithStyles, StyleRules } from "@material-ui/core/styles/withStyles";
+import createStyles from '@material-ui/core/styles/createStyles';
+import AppFrame from './AppFrame';
 import SearchBox from './SearchBox';
 import './App.css';
+
+const endpointList = ['im@sparql'];
+
+const appStyle = ({ spacing }: Theme): StyleRules => createStyles({
+  root: {
+    padding: `${64 + 24}px 24px`,
+    flex: '0 1 100%',
+  },
+});
+
+interface AppProps extends WithStyles<typeof appStyle> {}
 
 interface AppState {
   conditions: {
@@ -10,10 +23,11 @@ interface AppState {
     idolName: string,
     additionalInfo: string,
   };
+  endpoint: string;
 }
 
-class App extends Component<{}, AppState> {
-  constructor(props: {}) {
+class App extends Component<AppProps, AppState> {
+  constructor(props: AppProps) {
     super(props);
 
     this.state = {
@@ -22,28 +36,37 @@ class App extends Component<{}, AppState> {
         idolName: '',
         additionalInfo: '',
       },
+      endpoint: endpointList[0],
     };
-
-    this.handleOnChangeConditions = this.handleOnChangeConditions.bind(this);
   }
 
-  handleOnChangeConditions(conditions: any) {
+  handleOnChangeConditions = (conditions: any) => {
     console.log(conditions);
     this.setState({ conditions });
-  }
+  };
+
+  handleDrawerItemSelect = (text: string, index: number) => {
+    console.log(text, index);
+    this.setState({ endpoint: text });
+  };
 
   render() {
+    const { classes } = this.props;
     const { conditions } = this.state;
 
     return (
-      <div className="App">
-        <SearchBox
-          conditions={ conditions }
-          onChange={ this.handleOnChangeConditions }
-        />
-      </div>
+      <AppFrame
+        drawerItems={ endpointList }
+        onDrawerItemSelect={ this.handleDrawerItemSelect }>
+        <div className={ classes.root }>
+          <SearchBox
+            conditions={ conditions }
+            onChange={ this.handleOnChangeConditions }
+          />
+        </div>
+      </AppFrame>
     );
   }
 }
 
-export default App;
+export default withStyles(appStyle)(App);

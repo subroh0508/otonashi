@@ -1,14 +1,26 @@
 import React, { FunctionComponent } from 'react';
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import withStyles, { WithStyles, StyleRules } from "@material-ui/core/styles/withStyles";
+import createStyles from '@material-ui/core/styles/createStyles';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CheckBox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
+import Typography from '@material-ui/core/Typography';
 import uniq from 'lodash/uniq';
 import reject from 'lodash/reject';
 
-interface SearchBoxProps {
+const searchBoxStyle = (theme: Theme): StyleRules => createStyles({
+  root: {
+    '& > div': {
+      paddingBottom: 16,
+    },
+  },
+});
+
+interface SearchBoxProps extends WithStyles<typeof searchBoxStyle> {
   conditions: {
     contents: string[],
     idolName: string,
@@ -22,7 +34,7 @@ interface SearchBoxProps {
 }
 
 const SearchBox: FunctionComponent<SearchBoxProps> = (
-  { onChange, conditions }: SearchBoxProps,
+  { classes, onChange, conditions }: SearchBoxProps,
 ) => {
   const handleOnContents = (name: string, checked: boolean) => {
     let contents = [];
@@ -44,7 +56,7 @@ const SearchBox: FunctionComponent<SearchBoxProps> = (
   };
 
   return (
-    <div>
+    <div className={ classes.root }>
       <ContentsCheckGroup
         contents={ conditions.contents }
         onChange={ handleOnContents }
@@ -59,7 +71,7 @@ const SearchBox: FunctionComponent<SearchBoxProps> = (
       />
     </div>
   );
-}
+};
 
 interface ContentsCheckGroupProps {
   contents: Array<string>;
@@ -75,8 +87,7 @@ const ContentsCheckGroup: FunctionComponent<ContentsCheckGroupProps> = (
 
   return (
     <div>
-      <h3>所属コンテンツ</h3>
-
+      <Typography variant='h5'>所属コンテンツ</Typography>
       <FormGroup row>
         <FormControlLabel
           control={
@@ -153,13 +164,19 @@ const ContentsCheckGroup: FunctionComponent<ContentsCheckGroupProps> = (
   );
 };
 
-interface IdolNameProps {
+const idolNameStyle = (theme: Theme): StyleRules => createStyles({
+  textField: {
+    paddingBottom: 16,
+  },
+});
+
+interface IdolNameProps extends WithStyles<typeof idolNameStyle> {
   idolName: string;
   onChange: (idolName: string) => void;
 }
 
-const IdonNameTextField: FunctionComponent<IdolNameProps> = (
-  { idolName, onChange }: IdolNameProps,
+const IdonNameTextField = withStyles(idolNameStyle)((
+  { classes, idolName, onChange }: IdolNameProps,
 ) => {
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(event.target.value);
@@ -167,8 +184,8 @@ const IdonNameTextField: FunctionComponent<IdolNameProps> = (
 
   return (
     <div>
-      <h3>アイドル名</h3>
       <TextField
+        className={ classes.textField }
         label='アイドル名'
         value={ idolName }
         onChange={ handleOnChange }
@@ -177,7 +194,7 @@ const IdonNameTextField: FunctionComponent<IdolNameProps> = (
       />
     </div>
   );
-};
+});
 
 interface AdditionalInfoProps {
   additionalInfo: string;
@@ -193,7 +210,7 @@ const AdditionalInfoRadioGroup: FunctionComponent<AdditionalInfoProps> = (
 
   return (
     <div>
-      <h3>追加情報</h3>
+      <Typography variant='h5'>追加情報</Typography>
       <RadioGroup
         name='additionalInfo'
         value={ additionalInfo }
@@ -206,4 +223,4 @@ const AdditionalInfoRadioGroup: FunctionComponent<AdditionalInfoProps> = (
   );
 };
 
-export default SearchBox;
+export default withStyles(searchBoxStyle)(SearchBox);
