@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import withStyles, { WithStyles, StyleRules } from "@material-ui/core/styles/withStyles";
 import createStyles from '@material-ui/core/styles/createStyles';
+import Button from '@material-ui/core/Button';
 import AppFrame from './AppFrame';
 import SearchBox from './SearchBox';
 import './App.css';
@@ -12,6 +13,9 @@ const appStyle = ({ spacing }: Theme): StyleRules => createStyles({
   root: {
     padding: `${64 + 24}px 24px`,
     flex: '0 1 100%',
+  },
+  button: {
+    margin: '24px 0',
   },
 });
 
@@ -40,7 +44,7 @@ class App extends Component<AppProps, AppState> {
     };
   }
 
-  handleOnChangeConditions = (conditions: any) => {
+  handleChangeConditions = (conditions: any) => {
     console.log(conditions);
     this.setState({ conditions });
   };
@@ -61,8 +65,14 @@ class App extends Component<AppProps, AppState> {
         <div className={ classes.root }>
           <SearchBox
             conditions={ conditions }
-            onChange={ this.handleOnChangeConditions }
+            onChange={ this.handleChangeConditions }
           />
+          <Button
+            className={ classes.button }
+            variant='contained'
+            color='secondary'>
+            送信
+          </Button>
         </div>
       </AppFrame>
     );
