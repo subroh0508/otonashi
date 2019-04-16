@@ -24,5 +24,7 @@ data class ImasResult(
     @SerialName("three_size")
     val threeSize: String,
     @SerialName("unit_names")
-    val unitNames: String
+    val unitNames: String?,
+    @SerialName("clothes_names")
+    val clothesNames: String?
 )

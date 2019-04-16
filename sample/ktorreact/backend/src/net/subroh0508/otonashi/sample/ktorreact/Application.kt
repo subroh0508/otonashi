@@ -3,11 +3,9 @@ package net.subroh0508.otonashi.sample.ktorreact
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
+import io.ktor.features.CORS
 import io.ktor.features.CallLogging
 import io.ktor.http.ContentType
-import io.ktor.http.HttpStatusCode
-import io.ktor.request.path
-import io.ktor.response.respond
 import io.ktor.response.respondText
 import io.ktor.routing.get
 import io.ktor.routing.routing
@@ -15,10 +13,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.list
 import net.subroh0508.otonashi.core.Kotori
 import net.subroh0508.otonashi.core.Otonashi
-import net.subroh0508.otonashi.core.operators.functions.concat
-import net.subroh0508.otonashi.core.operators.functions.contains
-import net.subroh0508.otonashi.core.operators.functions.replace
-import net.subroh0508.otonashi.core.operators.functions.str
+import net.subroh0508.otonashi.core.operators.functions.*
 import net.subroh0508.otonashi.core.vocabulary.common.rdfP
 import net.subroh0508.otonashi.sample.ktorreact.httpclient.KtorClient
 import net.subroh0508.otonashi.sample.ktorreact.model.ImasResult
@@ -39,9 +34,11 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 @Suppress("unused") // Referenced in application.conf
 @kotlin.jvm.JvmOverloads
 fun Application.module(testing: Boolean = false) {
+    install(CORS) {
+        host("localhost:3000")
+    }
     install(CallLogging) {
-        level = Level.INFO
-        filter { call -> call.request.path().startsWith("/") }
+        level = Level.DEBUG
     }
 
     routing {
@@ -49,22 +46,19 @@ fun Application.module(testing: Boolean = false) {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
 
-        get("/name") {
-            val idolName = call.request.queryParameters["idol_name"]
+        get("/imasparql") {
+            val idolName = call.request.queryParameters["idol_name"] ?: ""
+            val contents = call.request.queryParameters.getAll("contents[]") ?: emptyList()
+            val additional = call.request.queryParameters["additional"] ?: ""
 
-            if (idolName == null) {
-                call.respond(HttpStatusCode.BadRequest, "specified idol name!")
-                return@get
-            }
-
-            val results = KtorClient.get(buildQuery(idolName).toString(), ImasResult::class).results()
+            val results = KtorClient.get(buildQuery(idolName, contents, additional).toString(), ImasResult::class).results()
 
             call.respondText(Json.indented.stringify(ImasResult.serializer().list, results), contentType = ContentType.Application.Json)
         }
     }
 }
 
-fun buildQuery(idolName: String): Kotori = init().where {
+fun buildQuery(idolName: String, contents: List<String>, additional: String): Kotori = init().where {
     v("s") be {
         rdfP.type to imasC.idol and
                 schemaP.name to v("name") and
@@ -79,22 +73,39 @@ fun buildQuery(idolName: String): Kotori = init().where {
                 schemaP.birthPlace to v("birth_place")
     }
     filter {
+        regex(v("title"), "(${titles(contents).joinToString("|")})") and
         contains(v("name"), idolName)
     }
     optional {
         v("s") be { imasP.color to v("color") }
     }
-    where {
-        v("s") be {
-            schemaP.memberOf to v("unit_url")
-        }
-        v("unit_url") be {
-            rdfP.type to imasC.unit and
-                    schemaP.name to v("unit_name")
-        }
-    }.select {
-        + v("s") + (groupConcat(v("unit_name"), separator = ",") `as` v("unit_names"))
-    }.groupBy(v("s"))
+    if (additional == "units") {
+        where {
+            v("s") be {
+                schemaP.memberOf to v("unit_url")
+            }
+            v("unit_url") be {
+                rdfP.type to imasC.unit and
+                schemaP.name to v("unit_name")
+            }
+        }.select {
+            + v("s") + (groupConcat(v("unit_name"), separator = ",") `as` v("unit_names"))
+        }.groupBy(v("s"))
+    }
+
+    if (additional == "clothes") {
+        where {
+            v("s") be {
+                schemaP.owns to v("clothes_url")
+            }
+            v("clothes_url") be {
+                rdfP.type to imasC.clothes and
+                schemaP.name to v("clothes_name")
+            }
+        }.select {
+            + v("s") + (groupConcat(v("clothes_name"), separator = ",") `as` v("clothes_names"))
+        }.groupBy(v("s"))
+    }
 }.select {
     replace(
         str(v("s")),
@@ -105,14 +116,33 @@ fun buildQuery(idolName: String): Kotori = init().where {
     concat("#", str(v("color"))) `as` v("color_hex")
     str(v("age")) `as` v("age_str")
 
-    + v("id") + v("name") +
+    (+ v("id") + v("name") +
             v("age_str") + v("color_hex") + v("blood_type") + v("handedness") +
-            v("birth_date") + v("birth_place") + v("three_size") + v("unit_names", true)
+            v("birth_date") + v("birth_place") + v("three_size") +
+            when (additional) {
+                "units" -> v("unit_names", true)
+                "clothes" -> v("clothes_names", true)
+                else -> null
+            }).filterNotNull()
 }
 
 private fun init() = Otonashi.Study {
     destination("https://sparql.crssnky.xyz/spql/imas/query")
     reminds(SchemaPrefix.SCHEMA, FoafPrefix.FOAF, ImasparqlPrefix.IMAS)
     buildsUp(*schemaVocabularies, *foafVocabularies, *imasparqlVocabularies)
+}
+
+private fun titles(contents: List<String>): List<String> = contents.let {
+    val etcetera = mutableListOf<String>()
+
+    if (contents.contains("staff")) {
+        etcetera.addAll(listOf("765Staff", "876Staff", "961Staff", "315Staff", "283Staff", "CinderellaGirlsStaff"))
+    }
+
+    if (contents.contains("others")) {
+        etcetera.addAll(listOf("DearlyStars", "961ProIdols"))
+    }
+
+    it + etcetera
 }
 

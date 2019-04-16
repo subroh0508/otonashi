@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import withStyles, { WithStyles, StyleRules } from "@material-ui/core/styles/withStyles";
 import createStyles from '@material-ui/core/styles/createStyles';
-import Button from '@material-ui/core/Button';
 import AppFrame from './AppFrame';
 import SearchBox from './SearchBox';
-import './App.css';
+import SearchResult from './SearchResult';
 
 const endpointList = ['im@sparql'];
 
@@ -67,12 +66,7 @@ class App extends Component<AppProps, AppState> {
             conditions={ conditions }
             onChange={ this.handleChangeConditions }
           />
-          <Button
-            className={ classes.button }
-            variant='contained'
-            color='secondary'>
-            送信
-          </Button>
+          <SearchResult { ...conditions }/>
         </div>
       </AppFrame>
     );

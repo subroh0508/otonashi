@@ -13,8 +13,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import MenuIcon from '@material-ui/icons/Menu';
 
-import './App.css';
-
 const appFrameStyle = ({ spacing }: Theme): StyleRules => createStyles({
   drawerHeader: {
     padding: spacing(2),
