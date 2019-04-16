@@ -7,7 +7,13 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import Chip from '@material-ui/core/Chip';
+import GroupIcon from '@material-ui/icons/Group';
+import StarIcon from '@material-ui/icons/Star';
+import blueGray from '@material-ui/core/colors/blueGrey';
 import ky from 'ky';
+import compact from 'lodash/compact';
+import isEmpty from 'lodash/isEmpty';
 
 const api = ky.extend({ prefixUrl: 'http://localhost:8080' });
 
@@ -18,6 +24,13 @@ const searchResultStyle = ({ spacing }: Theme): StyleRules => createStyles({
   },
   button: {
     margin: '24px 0',
+  },
+  resultSummary: {
+    background: blueGray[50],
+    paddingBottom: 48,
+    '& #result-summary': {
+      padding: `12px ${spacing(2)}px`,
+    },
   },
   card: {
     margin: spacing(2),
@@ -31,6 +44,7 @@ interface SearchResultProps extends WithStyles<typeof searchResultStyle> {
 }
 
 interface SearchResultState {
+  loading: boolean;
   results: {[key: string]: any}[];
 }
 
@@ -39,6 +53,7 @@ class SearchResult extends Component<SearchResultProps, SearchResultState> {
     super(props);
 
     this.state = {
+      loading: false,
       results: [],
     };
   }
@@ -46,58 +61,113 @@ class SearchResult extends Component<SearchResultProps, SearchResultState> {
   async fetchResults() {
     const { contents, idolName, additionalInfo } = this.props;
 
-    this.setState({ results: [] });
+    this.setState({ loading: true, results: [] });
 
     const response = await api.get(
       `imasparql?contents[]=${contents.map((c, _) => `${c}`).join('&contents[]=')}&idol_name=${idolName}&additional=${additionalInfo}`,
     );
 
-    console.log(response);
     if (response.ok) {
       const results = JSON.parse(await response.text()) as {[key: string]: any}[];
 
-      this.setState({ results });
+      this.setState({ loading: false, results });
+    } else {
+      this.setState({ loading: false });
     }
   }
 
   render() {
     const { classes } = this.props;
-    const { results } = this.state;
+    const { results, loading } = this.state;
 
     return (
       <div>
         <Button
           className={ classes.button }
+          disabled={ loading }
           variant='contained'
           color='secondary'
           onClick={ this.fetchResults.bind(this) }>
           送信
         </Button>
         <Divider/>
-        <div>
-          { `検索結果: ${results.length}件` }
-        </div>
+        <div className={ classes.resultSummary }>
+          <div id='result-summary'>
+            { `検索結果: ${results.length}件` }
+          </div>
 
-        {
-          results.map((json, i) => (
-            <Card key={ i } className={ classes.card }>
-              <CardContent>
-                <Typography variant='h5' component='h2'>
-                  { json['name'] }
-                </Typography>
-                <Typography color='textSecondary' gutterBottom>
-                  { json['id'] }
-                </Typography>
-                <Typography color='textSecondary'>
-                  { `${json['age_str']}歳 / ${json['blood_type']}型 / ${json['three_size']}` }
-                </Typography>
-              </CardContent>
-            </Card>
-          ))
-        }
+          {
+            results.map((json, i) => (
+              <Card key={ i } className={ classes.card }>
+                <ResultCardContent json={ json }/>
+              </Card>
+            ))
+          }
+        </div>
       </div>
     );
   }
 }
+
+const resultCardContentStyle = ({ spacing }: Theme): StyleRules => createStyles({
+  chip: {
+    padding: 2,
+    margin: spacing(1),
+  },
+  colorBar: {
+    height: 10,
+    marginBottom: spacing(1),
+  },
+});
+
+interface ResultCardContentProps extends WithStyles<typeof resultCardContentStyle>{
+  json: {[key: string]: any};
+}
+
+const ResultCardContent = withStyles(resultCardContentStyle)((
+  { classes, json }: ResultCardContentProps
+) => {
+  const birthDate = `${(json['birth_date'] as string).replace('--', '').replace('-', '月')}日`;
+  const handedness = json['handedness'] == 'right' ? '右' : (json['handedness'] == 'left' ? '左' : '両');
+
+  const isClothes = json['clothes_names'] !== null;
+  const chipLabels = (json['clothes_names'] || json['unit_names'] || '').split(',')
+
+  let chips: any[] = [];
+
+  if (isEmpty(compact(chipLabels))) {
+    chips = [<Typography className={ classes.chip }>NO DATA</Typography>];
+  } else {
+    chips = chipLabels.map((name: string, i: number) => (
+      <Chip
+        key={ i }
+        className={ classes.chip }
+        icon={ isClothes ? <StarIcon/> : <GroupIcon/> }
+        label={ name }
+      />
+    ));
+  }
+
+  return (
+    <CardContent>
+      <Typography variant='h5' component='h2'>
+        { json['name'] }
+      </Typography>
+      <Typography color='textSecondary' gutterBottom>
+        { json['id'] }
+      </Typography>
+      <div className={ classes.colorBar } style={ { background: json['color_hex'] } }/>
+      <Typography color='textSecondary'>
+        {
+          [
+            `${birthDate}生`, `${json['age_str']}歳`, json['birth_place'],
+            `${json['blood_type']}型`, handedness, json['three_size'],
+          ].join(" / ")
+        }
+      </Typography>
+      { chips }
+    </CardContent>
+  );
+});
 
 export default withStyles(searchResultStyle)(SearchResult);

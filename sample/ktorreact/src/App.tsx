@@ -44,12 +44,10 @@ class App extends Component<AppProps, AppState> {
   }
 
   handleChangeConditions = (conditions: any) => {
-    console.log(conditions);
     this.setState({ conditions });
   };
 
   handleDrawerItemSelect = (text: string, index: number) => {
-    console.log(text, index);
     this.setState({ endpoint: text });
   };
 
