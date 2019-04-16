@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import Divider from '@material-ui/core/Divider';
 import Chip from '@material-ui/core/Chip';
 import GroupIcon from '@material-ui/icons/Group';
@@ -31,6 +32,9 @@ const searchResultStyle = ({ spacing }: Theme): StyleRules => createStyles({
     '& #result-summary': {
       padding: `12px ${spacing(2)}px`,
     },
+  },
+  divider: {
+    marginTop: 3,
   },
   card: {
     margin: spacing(2),
@@ -90,7 +94,7 @@ class SearchResult extends Component<SearchResultProps, SearchResultState> {
           onClick={ this.fetchResults.bind(this) }>
           送信
         </Button>
-        <Divider/>
+        { loading ? (<LinearProgress/>) : (<Divider className={ classes.divider }/>) }
         <div className={ classes.resultSummary }>
           <div id='result-summary'>
             { `検索結果: ${results.length}件` }
