@@ -1,37 +1,33 @@
 package net.subroh0508.otonashi.androidapp.ui.fragment
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.fragment_search.*
-import kotlinx.android.synthetic.main.listitem_imas_search_result.view.*
+import kotlinx.android.synthetic.main.listitem_city_search_result.view.*
 import kotlinx.coroutines.launch
 import net.subroh0508.otonashi.R
 import net.subroh0508.otonashi.androidapp.KtorClient
-import net.subroh0508.otonashi.androidapp.model.ImasResult
+import net.subroh0508.otonashi.androidapp.model.CityResult
 import net.subroh0508.otonashi.androidapp.ui.Tag
 import net.subroh0508.otonashi.androidapp.ui.view.FooterViewHolder
+import net.subroh0508.otonashi.androidapp.ui.viewmodel.CityViewModel
 import net.subroh0508.otonashi.androidapp.ui.viewmodel.EventViewModel
-import net.subroh0508.otonashi.androidapp.ui.viewmodel.ImasViewModel
-import java.time.format.DateTimeFormatter
 
-class ImasSearchFragment : SearchFragment() {
+class CitySearchFragment : SearchFragment() {
     private val eventViewModel: EventViewModel by lazy {
         ViewModelProviders.of(requireActivity())[EventViewModel::class.java]
     }
-    private val imasViewModel: ImasViewModel by lazy {
-        ViewModelProviders.of(this)[ImasViewModel::class.java]
+    private val cityViewModel: CityViewModel by lazy {
+        ViewModelProviders.of(this)[CityViewModel::class.java]
     }
 
     private val adapter: ResultAdapter by lazy { ResultAdapter(LayoutInflater.from(requireContext())) }
@@ -41,14 +37,14 @@ class ImasSearchFragment : SearchFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with (results) {
-            adapter = this@ImasSearchFragment.adapter
-            layoutManager = this@ImasSearchFragment.layoutManager
+            adapter = this@CitySearchFragment.adapter
+            layoutManager = this@CitySearchFragment.layoutManager
         }
 
         eventViewModel.openDialogEvent.observe(this, Observer {
-            if (it != Tag.IMAS_KOTLINX_SERIALIZATION) return@Observer
+            if (it != Tag.CITY_KOTLINX_SERIALIZATION) return@Observer
 
-            ImasSearchConditionsDialog(this).show(requireFragmentManager(), "imas_search")
+            CitySearchConditionsDialog(this).show(requireFragmentManager(), "city_search")
         })
     }
 
@@ -58,10 +54,11 @@ class ImasSearchFragment : SearchFragment() {
         if (resultCode == AppCompatActivity.RESULT_CANCELED) return
 
         launch {
-            val query = imasViewModel.buildQuery(requireContext())
+            val query = cityViewModel.buildQuery()
+            Log.d("rawQuery", query.toString())
             Log.d("query", query.urlDecode())
 
-            val response = KtorClient.get(query.toString(), ImasResult::class)
+            val response = KtorClient.get(query.toString(), CityResult::class)
 
             adapter.onFetchedResults(response.results())
         }
@@ -69,13 +66,13 @@ class ImasSearchFragment : SearchFragment() {
 
     class ResultAdapter(
         private val inflater: LayoutInflater,
-        private var results: List<ImasResult> = listOf()
+        private var results: List<CityResult> = listOf()
     ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         init {
             setHasStableIds(true)
         }
 
-        fun onFetchedResults(results: List<ImasResult>) {
+        fun onFetchedResults(results: List<CityResult>) {
             this.results = results
             notifyDataSetChanged()
         }
@@ -83,11 +80,11 @@ class ImasSearchFragment : SearchFragment() {
         override fun getItemCount() = results.size + 1
         override fun getItemId(position: Int): Long = when (position == results.size) {
             true -> 0L
-            false -> results[position].id.hashCode().toLong()
+            false -> results[position].hashCode().toLong()
         }
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
             FooterViewHolder.ITEM_TYPE -> FooterViewHolder(inflater.inflate(R.layout.listitem_footer, parent, false))
-            else -> ResultViewHolder(inflater.inflate(R.layout.listitem_imas_search_result, parent, false))
+            else -> ResultViewHolder(inflater.inflate(R.layout.listitem_city_search_result, parent, false))
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -108,32 +105,10 @@ class ImasSearchFragment : SearchFragment() {
             const val ITEM_TYPE = 1
         }
 
-        fun bindItem(item: ImasResult) {
+        fun bindItem(item: CityResult) {
             with (itemView) {
-                idolId.text = item.id
-                idolName.text = item.name
-
-                val birthDate = item.birthDate.format(DateTimeFormatter.ofPattern("M月d日"))
-                val handedness = when (item.handedness) {
-                    "right" -> "右"
-                    "left" -> "左"
-                    else -> "両"
-                }
-                profile.text = listOf(
-                    "${birthDate}生", "${item.age}歳", item.birthPlace,
-                    "${item.bloodType}型", handedness, item.threeSize
-                ).joinToString(" / ")
-                color.setBackgroundColor(item.color?.let { Color.parseColor(it) } ?: Color.LTGRAY)
-
-                unitNames.removeAllViews()
-                item.unitNames.split(",").sorted().forEachIndexed { i, unitName ->
-                    val chip = Chip(context, null, R.style.Widget_MaterialComponents_Chip_Choice).apply {
-                        text = unitName
-                        setTextColor(ContextCompat.getColor(context, R.color.black))
-                    }
-
-                    unitNames.addView(chip)
-                }
+                cityName.text = item.cityName
+                prefectureName.text = item.prefectureName
             }
         }
     }

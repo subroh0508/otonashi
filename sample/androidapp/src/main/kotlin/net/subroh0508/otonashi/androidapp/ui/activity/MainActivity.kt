@@ -9,6 +9,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import net.subroh0508.otonashi.R
+import net.subroh0508.otonashi.androidapp.ui.Tag
+import net.subroh0508.otonashi.androidapp.ui.fragment.CitySearchFragment
 import net.subroh0508.otonashi.androidapp.ui.fragment.ImasSearchFragment
 import net.subroh0508.otonashi.androidapp.ui.view.TabLayoutMediator
 import net.subroh0508.otonashi.androidapp.ui.viewmodel.EventViewModel
@@ -22,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         object : FragmentStateAdapter(this) {
             override fun getItem(position: Int): Fragment = when (Tag.values()[position]) {
                 Tag.IMAS_KOTLINX_SERIALIZATION -> ImasSearchFragment()
+                Tag.CITY_KOTLINX_SERIALIZATION -> CitySearchFragment()
             }
 
             override fun getItemCount() = Tag.values().size
@@ -36,7 +39,11 @@ class MainActivity : AppCompatActivity() {
 
         viewPager.adapter = viewPagerAdapter
         searchConditions.setOnClickListener {
-            viewModel.openDialog()
+            when (viewPager.currentItem) {
+                0 -> viewModel.openDialog(Tag.IMAS_KOTLINX_SERIALIZATION)
+                1 -> viewModel.openDialog(Tag.CITY_KOTLINX_SERIALIZATION)
+            }
+
         }
 
         TabLayoutMediator(tabs, viewPager, object : TabLayoutMediator.OnConfigureTabCallback {
@@ -44,9 +51,5 @@ class MainActivity : AppCompatActivity() {
                 tab.text = Tag.values()[position].displayName
             }
         }).attach()
-    }
-
-    private enum class Tag(val id: Long, val displayName: String) {
-        IMAS_KOTLINX_SERIALIZATION(0L, "imas(kotlinx)")
     }
 }

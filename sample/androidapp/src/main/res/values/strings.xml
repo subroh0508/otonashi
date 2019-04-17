@@ -10,10 +10,13 @@
     <string name="title_others">OTHERS</string>
     <string name="title_staff">STAFF</string>
 
+    <string name="idol_name">アイドル名</string>
+
+    <string name="prefecture_name">都道府県</string>
+    <string name="city_name">市区町村名</string>
+
     <string name="search">検索</string>
     <string name="cancel">キャンセル</string>
-
-    <string name="idol_name">アイドル名</string>
 
     <string name="send_request">リクエスト送信</string>
 
