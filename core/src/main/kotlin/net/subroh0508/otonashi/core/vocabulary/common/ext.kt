@@ -22,4 +22,4 @@ val TripleFacade.rdfsC get() = iri.rdfsC
 val Set<IriVocabulary>.rdfsP get() = get(RDFSchemaProperty::class)
 val TripleFacade.rdfsP get() = iri.rdfsP
 
-val commonVocabularies = arrayOf(RDFClass, RDFProperty, RDFSchemaClass, RDFProperty)
+val commonVocabularies = arrayOf(RDFClass, RDFProperty, RDFSchemaClass, RDFProperty, RDFSchemaProperty)
