@@ -1,7 +1,7 @@
 @Suppress("unused")
 object Versions {
     const val androidGradlePlugin = "3.3.2"
-    const val kotlin = "1.3.21"
+    const val kotlin = "1.3.30"
     const val kotlinxSerialization = "0.10.0"
     const val bintray = "1.8.4"
     const val shadow = "5.0.0"
@@ -26,7 +26,7 @@ object Versions {
 
     const val material = "1.1.0-alpha05"
 
-    const val ktor = "1.1.3"
+    const val ktor = "1.1.4"
 
     const val okhttp3 = "3.14.0"
 
