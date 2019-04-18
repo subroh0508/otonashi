@@ -138,7 +138,7 @@ const CityResultCardContent = withStyles(resultCardContentStyle)((
       <Typography color='textSecondary' gutterBottom>
         { json['prefecture_name'] }
       </Typography>
-      { json['description'] }
+      { json['abstract'] }
     </CardContent>
   );
 });
