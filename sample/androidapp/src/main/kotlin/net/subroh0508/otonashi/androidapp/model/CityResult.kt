@@ -8,5 +8,6 @@ data class CityResult(
     @SerialName("prefecture_name")
     val prefectureName: String,
     @SerialName("city_name")
-    val cityName: String
+    val cityName: String,
+    val abstract: String
 )

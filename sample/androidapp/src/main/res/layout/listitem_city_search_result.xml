@@ -18,7 +18,7 @@
         android:paddingStart="8dp"
         android:textSize="16sp"
         android:textColor="@color/black"
-        tools:text="千代田区"
+        tools:text="八王子市"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +37,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cityName"
+        app:layout_constraintBottom_toTopOf="@id/abstraction"/>
+
+    <TextView
+        android:id="@+id/abstraction"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        tools:text="実質山梨県"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/prefectureName"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

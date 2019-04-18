@@ -55,7 +55,6 @@ class CitySearchFragment : SearchFragment() {
 
         launch {
             val query = cityViewModel.buildQuery()
-            Log.d("rawQuery", query.toString())
             Log.d("query", query.urlDecode())
 
             val response = KtorClient.get(query.toString(), CityResult::class)
@@ -109,6 +108,7 @@ class CitySearchFragment : SearchFragment() {
             with (itemView) {
                 cityName.text = item.cityName
                 prefectureName.text = item.prefectureName
+                abstraction.text = item.abstract
             }
         }
     }

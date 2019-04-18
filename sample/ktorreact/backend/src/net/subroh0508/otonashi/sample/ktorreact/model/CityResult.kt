@@ -9,6 +9,5 @@ data class CityResult(
     val prefectureName: String,
     @SerialName("city_name")
     val cityName: String,
-    @SerialName("abstract")
     val abstract: String
 )

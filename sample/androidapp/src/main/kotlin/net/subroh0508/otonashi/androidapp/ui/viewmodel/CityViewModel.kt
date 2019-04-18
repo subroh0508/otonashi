@@ -25,7 +25,8 @@ class CityViewModel : ViewModel() {
         v("city") be {
             rdfP.type to schemaC.city and
             iri("dbo:location") to v("prefecture") and
-            rdfsP.label to v("city_name")
+            rdfsP.label to v("city_name") and
+            iri("dbo:abstract") to v("abstract")
         }
 
         when {
@@ -40,7 +41,7 @@ class CityViewModel : ViewModel() {
                 contains(v("city_name"), cityName)
             }
         }
-    }.select { + v("prefecture_name") + v("city_name") }
+    }.select { + v("prefecture_name") + v("city_name") + v("abstract") }
 
     private fun init() = Otonashi.Study {
         destination("http://ja.dbpedia.org/sparql")
