@@ -20,7 +20,7 @@ const searchBoxStyle = (theme: Theme): StyleRules => createStyles({
   },
 });
 
-interface SearchBoxProps extends WithStyles<typeof searchBoxStyle> {
+interface ImasSearchBoxProps extends WithStyles<typeof searchBoxStyle> {
   conditions: {
     contents: string[],
     idolName: string,
@@ -33,8 +33,8 @@ interface SearchBoxProps extends WithStyles<typeof searchBoxStyle> {
   }) => void;
 }
 
-const SearchBox: FunctionComponent<SearchBoxProps> = (
-  { classes, onChange, conditions }: SearchBoxProps,
+const ImasSearchBox: FunctionComponent<ImasSearchBoxProps> = (
+  { classes, onChange, conditions }: ImasSearchBoxProps,
 ) => {
   const handleOnContents = (name: string, checked: boolean) => {
     let contents = [];
@@ -223,4 +223,4 @@ const AdditionalInfoRadioGroup: FunctionComponent<AdditionalInfoProps> = (
   );
 };
 
-export default withStyles(searchBoxStyle)(SearchBox);
+export default withStyles(searchBoxStyle)(ImasSearchBox);

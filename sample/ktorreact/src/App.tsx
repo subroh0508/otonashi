@@ -1,12 +1,15 @@
-import React, { Component } from 'react';
+import React, {Component, FunctionComponent} from 'react';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import withStyles, { WithStyles, StyleRules } from "@material-ui/core/styles/withStyles";
 import createStyles from '@material-ui/core/styles/createStyles';
 import AppFrame from './AppFrame';
-import SearchBox from './SearchBox';
-import SearchResult from './SearchResult';
+import ImasSearchBox from './ImasSearchBox';
+import ImasSearchResult from './ImasSearchResult';
+import CitySearchBox from './CitySearchBox';
+import CitySearchResult from './CitySearchResult';
+import pick from 'lodash/pick';
 
-const endpointList = ['im@sparql'];
+const endpointList = ['im@sparql', 'dbpedia'];
 
 const appStyle = ({ spacing }: Theme): StyleRules => createStyles({
   root: {
@@ -21,11 +24,8 @@ const appStyle = ({ spacing }: Theme): StyleRules => createStyles({
 interface AppProps extends WithStyles<typeof appStyle> {}
 
 interface AppState {
-  conditions: {
-    contents: string[],
-    idolName: string,
-    additionalInfo: string,
-  };
+  'im@sparql': { [key: string]: any };
+  dbpedia: { [key: string]: any },
   endpoint: string;
 }
 
@@ -34,17 +34,30 @@ class App extends Component<AppProps, AppState> {
     super(props);
 
     this.state = {
-      conditions: {
+      'im@sparql': {
         contents: [],
         idolName: '',
         additionalInfo: '',
+      },
+      dbpedia: {
+        prefectureName: '',
+        cityName: '',
       },
       endpoint: endpointList[0],
     };
   }
 
-  handleChangeConditions = (conditions: any) => {
-    this.setState({ conditions });
+  handleChangeConditions = (conditions: {[key: string]: any}) => {
+    const { endpoint } = this.state;
+
+    switch (endpoint) {
+      case 'im@sparql':
+        this.setState({ 'im@sparql': conditions });
+        break;
+      case 'dbpedia':
+        this.setState({ dbpedia: conditions });
+        break;
+    }
   };
 
   handleDrawerItemSelect = (text: string, index: number) => {
@@ -53,22 +66,56 @@ class App extends Component<AppProps, AppState> {
 
   render() {
     const { classes } = this.props;
-    const { conditions } = this.state;
+    const { endpoint } = this.state;
 
     return (
       <AppFrame
         drawerItems={ endpointList }
         onDrawerItemSelect={ this.handleDrawerItemSelect }>
         <div className={ classes.root }>
-          <SearchBox
-            conditions={ conditions }
-            onChange={ this.handleChangeConditions }
-          />
-          <SearchResult { ...conditions }/>
+          <SearchContainer
+            endpoint={ endpoint }
+            conditions={ pick(this.state, endpointList) }
+            onChangeConditions={ this.handleChangeConditions.bind(this) }/>
         </div>
       </AppFrame>
     );
   }
 }
+
+interface SearchContainerProps {
+  endpoint: string;
+  conditions: { [key: string]: any };
+  onChangeConditions: (conditions: {[key: string]: any}) => void;
+}
+
+const SearchContainer: FunctionComponent<SearchContainerProps> = (
+  { endpoint, conditions, onChangeConditions }: SearchContainerProps
+) => {
+  switch (endpoint) {
+    case 'im@sparql':
+      return (
+        <div>
+          <ImasSearchBox
+            conditions={ conditions['im@sparql'] }
+            onChange={ onChangeConditions }
+          />
+          <ImasSearchResult { ...conditions['im@sparql'] }/>
+        </div>
+      );
+    case 'dbpedia':
+      return (
+        <div>
+          <CitySearchBox
+            conditions={ conditions.dbpedia }
+            onChange={ onChangeConditions }
+          />
+          <CitySearchResult { ...conditions.dbpedia }/>
+        </div>
+      );
+    default:
+      return null;
+  }
+};
 
 export default withStyles(appStyle)(App);

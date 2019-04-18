@@ -41,19 +41,19 @@ const searchResultStyle = ({ spacing }: Theme): StyleRules => createStyles({
   },
 });
 
-interface SearchResultProps extends WithStyles<typeof searchResultStyle> {
+interface ImasSearchResultProps extends WithStyles<typeof searchResultStyle> {
   contents: string[];
   idolName: string;
   additionalInfo: string;
 }
 
-interface SearchResultState {
+interface ImasSearchResultState {
   loading: boolean;
   results: {[key: string]: any}[];
 }
 
-class SearchResult extends Component<SearchResultProps, SearchResultState> {
-  constructor(props: SearchResultProps) {
+class ImasSearchResult extends Component<ImasSearchResultProps, ImasSearchResultState> {
+  constructor(props: ImasSearchResultProps) {
     super(props);
 
     this.state = {
@@ -103,7 +103,7 @@ class SearchResult extends Component<SearchResultProps, SearchResultState> {
           {
             results.map((json, i) => (
               <Card key={ i } className={ classes.card }>
-                <ResultCardContent json={ json }/>
+                <ImasResultCardContent json={ json }/>
               </Card>
             ))
           }
@@ -124,12 +124,12 @@ const resultCardContentStyle = ({ spacing }: Theme): StyleRules => createStyles(
   },
 });
 
-interface ResultCardContentProps extends WithStyles<typeof resultCardContentStyle>{
+interface ImasResultCardContentProps extends WithStyles<typeof resultCardContentStyle>{
   json: {[key: string]: any};
 }
 
-const ResultCardContent = withStyles(resultCardContentStyle)((
-  { classes, json }: ResultCardContentProps
+const ImasResultCardContent = withStyles(resultCardContentStyle)((
+  { classes, json }: ImasResultCardContentProps
 ) => {
   const birthDate = `${(json['birth_date'] as string).replace('--', '').replace('-', '月')}日`;
   const handedness = json['handedness'] == 'right' ? '右' : (json['handedness'] == 'left' ? '左' : '両');
@@ -174,4 +174,4 @@ const ResultCardContent = withStyles(resultCardContentStyle)((
   );
 });
 
-export default withStyles(searchResultStyle)(SearchResult);
+export default withStyles(searchResultStyle)(ImasSearchResult);
