@@ -1,7 +1,7 @@
 # Otonashi
 
 [ ![Download](https://api.bintray.com/packages/subroh0508/maven/Otonashi/images/download.svg) ](https://bintray.com/subroh0508/maven/Otonashi/_latestVersion)
-![KOTORI-rate](https://img.shields.io/badge/dynamic/json.svg?label=Kotori-Rate&colorB=fff98e&query=$.kotori_rate&uri=https%3A%2F%2Fus-central1-kotori-badge.cloudfunctions.net%2Fbadge%3Fowner%3Dsubroh0508%26repo%3Dotonashi&suffix=%)
+![Kotori-rate](https://img.shields.io/badge/dynamic/json.svg?label=Kotori-Rate&colorB=fff98e&query=$.kotori_rate&uri=https%3A%2F%2Fasia-northeast1-kotori-badge.cloudfunctions.net%2Fbadge%3Fowner%3Dsubroh0508%26repo%3Dotonashi&suffix=%)
 
 Otonashi is a SPARQL client library made by Kotlin.
 
