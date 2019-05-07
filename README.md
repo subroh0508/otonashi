@@ -38,7 +38,7 @@ dependencies {
 
 Sample query is
 
-```
+```SPARQL
 SELECT
   (replace(str(?s), 'https:\/\/sparql.crssnky.xyz\/imasrdf\/RDFs\/detail\/', '') as ?id)
   ?name
@@ -56,7 +56,7 @@ WHERE {
 
 Use by Otonashi
 
-```
+```Kotlin
 // initialize client
 // note: requires schema, foaf and imasparql vocabularies
 val kotori: Kotori by lazy {
